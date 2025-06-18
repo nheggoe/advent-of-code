@@ -13,14 +13,9 @@ object InputFetcher:
 
   def fetchInput(year: Int, day: Int): String =
     val cacheFile = Path.of(cacheDir, year.toString, s"day$day.txt")
-
-    // Check if cached file exists
-    if Files.exists(cacheFile) then
-      // println(s"Reading from cache: $cacheFile")
-      Files.readString(cacheFile)
+    if Files.exists(cacheFile) then Files.readString(cacheFile)
     else
       val input = fetchFromInternet(year, day)
-      // println(s"Fetching from internet for year $year, day $day")
       saveToCache(cacheFile, input)
       input
 
@@ -39,7 +34,7 @@ object InputFetcher:
                 .toOption
             )
             .orElseFail(new RuntimeException("Invalid URL"))
-          response <- Client.request(
+          response <- Client.batched(
             Request
               .get(url)
               .addHeader("Cookie", s"session=$token")
@@ -58,7 +53,6 @@ object InputFetcher:
     // Create parent directories if they don't exist
     Files.createDirectories(cacheFile.getParent)
     Files.writeString(cacheFile, content)
-    println(s"Saved to cache: $cacheFile")
 
   private def readDotEnv(
       path: String = "../.env"
