@@ -4,6 +4,6 @@ ThisBuild / scalaVersion := "3.7.1"
 
 lazy val root = (project in file("."))
   .settings(
-    name := "advent",
+    name := "advent-of-code",
     idePackagePrefix := Some("dev.nheggoe")
   )
