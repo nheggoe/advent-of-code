@@ -21,7 +21,7 @@ object InputFetcher:
 
   private def fetchFromInternet(year: Int, day: Int): String =
     val program = ZIO
-      .scoped {
+      .scoped:
         for
           env <- readDotEnv()
           token <- ZIO
@@ -42,27 +42,25 @@ object InputFetcher:
           )
           body <- response.body.asString
         yield body.trim
-      }
       .provide(Client.default)
 
-    Unsafe.unsafe { implicit unsafe =>
-      Runtime.default.unsafe.run(program).getOrThrowFiberFailure()
-    }
+    Unsafe.unsafe:
+      implicit unsafe =>
+        Runtime.default.unsafe.run(program).getOrThrowFiberFailure()
 
   private def saveToCache(cacheFile: Path, content: String): Unit =
-    // Create parent directories if they don't exist
     Files.createDirectories(cacheFile.getParent)
     Files.writeString(cacheFile, content)
 
   private def readDotEnv(
       path: String = "../.env"
   ): ZIO[Any, Throwable, Map[String, String]] =
-    ZIO.attempt {
+    ZIO.attempt:
       Files
         .readAllLines(Paths.get(path))
         .asScala
         .filter(_.contains("="))
         .map(_.split("=", 2))
-        .collect { case Array(k, v) => k.trim -> v.trim }
+        .collect:
+          case Array(k, v) => k.trim -> v.trim
         .toMap
-    }
