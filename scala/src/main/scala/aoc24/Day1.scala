@@ -1,4 +1,7 @@
-import dev.nheggoe.aoc24.InputFetcher
+package dev.nheggoe
+package aoc24
+
+import util.InputFetcher
 
 object Day1:
   def main(args: Array[String]): Unit =

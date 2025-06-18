@@ -1,4 +1,5 @@
-package dev.nheggoe.aoc24
+package dev.nheggoe
+package util
 
 import zio.*
 import zio.http.*
