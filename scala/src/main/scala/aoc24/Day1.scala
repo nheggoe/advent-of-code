@@ -6,8 +6,7 @@ import util.InputFetcher.fetchInput
 /** @see `https://adventofcode.com/2024/day/1` */
 object Day1:
 
-  val input: List[String] =
-    fetchInput(2024, 1).split("\n").map(_.strip()).toList
+  val input: List[String] = fetchInput(2024, 1)
 
   def main(args: Array[String]): Unit =
     println(s"Part one is $partOne")

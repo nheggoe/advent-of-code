@@ -11,13 +11,16 @@ object InputFetcher:
 
   private val cacheDir = "cache"
 
-  def fetchInput(year: Int, day: Int): String =
-    val cacheFile = Path.of(cacheDir, year.toString, s"day$day.txt")
-    if Files.exists(cacheFile) then Files.readString(cacheFile)
-    else
-      val input = fetchFromInternet(year, day)
-      saveToCache(cacheFile, input)
-      input
+  def fetchInput(year: Int, day: Int): List[String] =
+    def load: String =
+      val cacheFile = Path.of(cacheDir, year.toString, s"day$day.txt")
+      if Files.exists(cacheFile) then Files.readString(cacheFile)
+      else
+        val input = fetchFromInternet(year, day)
+        saveToCache(cacheFile, input)
+        input
+
+    load.split("\n").map(_.trim).toList
 
   private def fetchFromInternet(year: Int, day: Int): String =
     val program = ZIO
