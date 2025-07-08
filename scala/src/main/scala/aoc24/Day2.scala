@@ -3,52 +3,37 @@ package aoc24
 
 import util.InputFetcher.fetchInput
 
-import scala.annotation.tailrec
-
 object Day2 {
-  val input: Seq[Seq[Int]] =
-    fetchInput(2024, 2)
-      .map(_.split("\\s+"))
-      .map(_.map(Integer.parseInt).toSeq)
+
+  val input: Seq[String] = fetchInput(2024, 2)
+
+  def parseLine(line: String): Report =
+    val levels = line.split("\\s+").map(_.toInt)
+    Report(levels)
+
+  case class Report(levels: Seq[Int]):
+    def isSafe: Boolean =
+      (allIncreasing || allDecreasing) && allInRange
+    def isDampenedSafe: Boolean =
+      isSafe || dampenedReport
+    private val pairs: Seq[(Int, Int)] = levels.init.zip(levels.tail)
+    private val allIncreasing: Boolean = pairs.forall(_ < _)
+    private val allDecreasing: Boolean = pairs.forall(_ > _)
+    private val allInRange: Boolean =
+      pairs.forall: pair =>
+        val difference = math.abs(pair._1 - pair._2)
+        (1 to 3).contains(difference)
+    private def dampenedReport: Boolean =
+      levels.indices.exists: index =>
+        val newLevels = levels.take(index) ++ levels.drop(index + 1)
+        Report(newLevels).isSafe
 
   def main(args: Array[String]): Unit = {
-    println(s"Day 2 part one is: ${partOne(input)}")
-    println(s"Day 2 part two is: ${partTwo(input)}")
+    val reports = input.map(parseLine)
+    val partOne = reports.count(_.isSafe)
+    val partTwo = reports.count(_.isDampenedSafe)
+    println(s"Day 2 part one is: $partOne")
+    println(s"Day 2 part two is: $partTwo")
   }
 
-  def partOne(input: Seq[Seq[Int]]): Int = {
-    input.map(isSafe).count(_ == true)
-  }
-
-  def partTwo(input: Seq[Seq[Int]]): Int = {
-    input
-      .map(isSafeWithTolerance(_))
-      .count(_ == true)
-  }
-
-  def isSafeWithTolerance(levels: Seq[Int], tolerance: Int = 1): Boolean = {
-    @tailrec
-    def loop(levels: Seq[Int], iteration: Int = 0): Boolean =
-      if iteration > tolerance then false
-      else if levels.combinations(levels.size - iteration).exists(isSafe) then
-        true
-      else loop(levels, iteration + 1)
-    loop(levels)
-  }
-
-  def isSafe(levels: Seq[Int]): Boolean = {
-    def isSafeIncreasing(window: Seq[Int]): Boolean = {
-      (1 to 3).contains(difference(window))
-    }
-    def isSafeDecreasing(window: Seq[Int]): Boolean = {
-      (-3 to -1).contains(difference(window))
-    }
-    def difference(window: Seq[Int]): Int = {
-      assert(window.size == 2)
-      window.last - window.head
-    }
-
-    levels.sliding(2).forall(isSafeIncreasing)
-    || levels.sliding(2).forall(isSafeDecreasing)
-  }
 }
