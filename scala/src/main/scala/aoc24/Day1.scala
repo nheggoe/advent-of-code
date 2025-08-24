@@ -6,7 +6,7 @@ import util.InputFetcher.fetchInput
 /** @see `https://adventofcode.com/2024/day/1` */
 object Day1:
 
-  val input: Seq[String] = fetchInput(2024, 1)
+  val input: String = fetchInput(2024, 1)
 
   def main(args: Array[String]): Unit =
     println(s"Part one is $partOne")
@@ -14,6 +14,7 @@ object Day1:
 
   private def leftAndRight: (Seq[Int], Seq[Int]) =
     val (a, b) = input
+      .split('\n')
       .map(_.split("\\s+", 2))
       .map(token => (Integer.parseInt(token(0)), Integer.parseInt(token(1))))
       .unzip

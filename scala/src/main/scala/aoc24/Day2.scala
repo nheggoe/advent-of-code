@@ -5,7 +5,7 @@ import util.InputFetcher.fetchInput
 
 object Day2 {
 
-  val input: Seq[String] = fetchInput(2024, 2)
+  val input: String = fetchInput(2024, 2)
 
   def parseLine(line: String): Report =
     val levels = line.split("\\s+").map(_.toInt)
@@ -29,7 +29,7 @@ object Day2 {
         Report(newLevels).isSafe
 
   def main(args: Array[String]): Unit = {
-    val reports = input.map(parseLine)
+    val reports = input.split("\n").map(parseLine)
     val partOne = reports.count(_.isSafe)
     val partTwo = reports.count(_.isDampenedSafe)
     println(s"Day 2 part one is: $partOne")
