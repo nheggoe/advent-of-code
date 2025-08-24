@@ -5,7 +5,6 @@ import sttp.client4.Response
 import sttp.client4.quick.*
 
 import java.nio.file.{Files, Path, Paths}
-import scala.concurrent.Future
 import scala.jdk.CollectionConverters.*
 
 object InputFetcher:
