@@ -3,10 +3,7 @@ package aoc24
 
 import util.InputFetcher
 
-import java.util.concurrent.ForkJoinPool
 import scala.collection.mutable.ArrayBuffer
-import scala.concurrent.duration.Duration
-import scala.concurrent.{Await, ExecutionContext, Future}
 
 object Day05 {
 
@@ -30,16 +27,11 @@ object Day05 {
 
   def partTwo(input: String): Int = {
     val ruleIndex = indexMap(input)
-    val pool = new ForkJoinPool(Runtime.getRuntime.availableProcessors())
-
-    given ec: ExecutionContext = ExecutionContext.fromExecutor(pool)
-
-    val pages = pageSeq(input).filterNot(seq => isValid(seq, ruleIndex))
-    val futures = pages.map(seq => Future(fixSeq(seq, ruleIndex)))
-
-    val fixed: Seq[Seq[Int]] =
-      Await.result(Future.sequence(futures), Duration.Inf)
-    fixed.map(seq => seq(seq.size / 2)).sum
+    pageSeq(input)
+      .filterNot(isValid(_, ruleIndex))
+      .map(fixSeq(_, ruleIndex))
+      .map(seq => seq(seq.size / 2))
+      .sum
   }
 
   private def fixSeq(
