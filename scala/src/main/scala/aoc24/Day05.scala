@@ -50,11 +50,11 @@ object Day05 {
     val size = nums.size
 
     for (i <- size - 1 to 1 by -1) {
-      var mustComeBefore = ruleIndex.getOrElse(mutableCopy(i), Set.empty[Int])
-      while (mutableCopy.iterator.slice(0, i).exists(mustComeBefore.contains)) {
+      var mustComeAfter = ruleIndex.getOrElse(mutableCopy(i), Set.empty[Int])
+      while (mutableCopy.iterator.slice(0, i).exists(mustComeAfter)) {
         val temp = mutableCopy.remove(i)
         mutableCopy.prepend(temp)
-        mustComeBefore = ruleIndex.getOrElse(mutableCopy(i), Set.empty[Int])
+        mustComeAfter = ruleIndex.getOrElse(mutableCopy(i), Set.empty[Int])
       }
     }
     mutableCopy.toSeq
@@ -79,14 +79,9 @@ object Day05 {
       nums: Seq[Int],
       ruleIndex: Map[Int, Set[Int]]
   ): Boolean = {
-    for { i <- nums.indices } {
+    nums.indices.drop(1).reverse.forall { i =>
       val mustComeAfter = ruleIndex.getOrElse(nums(i), Set.empty[Int])
-      for { k <- 0 until i } {
-        if (mustComeAfter.contains(nums(k))) {
-          return false
-        }
-      }
+      !nums.iterator.slice(0, i).exists(mustComeAfter)
     }
-    true
   }
 }
