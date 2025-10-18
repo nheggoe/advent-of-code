@@ -1,9 +1,9 @@
 package dev.nheggoe
 package aoc24
 
-import aoc24.Day3.{partOne, partTwo}
+import aoc24.Day03.{partOne, partTwo}
 
-class Day3Test extends munit.FunSuite:
+class Day03Test extends munit.FunSuite:
 
   val exampleInput =
     "xmul(2,4)&mul[3,7]!^don't()_mul(5,5)+mul(32,64](mul(11,8)undo()?mul(8,5))"

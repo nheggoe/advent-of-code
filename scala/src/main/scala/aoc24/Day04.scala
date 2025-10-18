@@ -3,7 +3,7 @@ package aoc24
 
 import util.InputFetcher
 
-object Day4 {
+object Day04 {
   private val puzzleInput = InputFetcher.fetchInput(2024, 4)
 
   @main

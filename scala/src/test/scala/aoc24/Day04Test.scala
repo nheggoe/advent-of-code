@@ -1,11 +1,11 @@
 package dev.nheggoe
 package aoc24
 
-import aoc24.Day4.{partOne, partTwo}
+import aoc24.Day04.{partOne, partTwo}
 
 import munit.FunSuite
 
-class Day4Test extends FunSuite:
+class Day04Test extends FunSuite:
 
   private val exampleInput = """MMMSXXMASM
                            |MSAMXMSMSA
