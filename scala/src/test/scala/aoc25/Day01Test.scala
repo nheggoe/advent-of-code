@@ -26,4 +26,9 @@ class Day01Test extends FunSuite {
     val expected = 3
     assertEquals(Day01.partOne(puzzleInput), expected)
   }
+
+  test("Part two") {
+    val expected = 6
+    assertEquals(Day01.partTwo(puzzleInput), expected)
+  }
 }
