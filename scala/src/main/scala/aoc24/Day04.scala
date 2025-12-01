@@ -6,8 +6,7 @@ import util.InputFetcher
 object Day04 {
   private val puzzleInput = InputFetcher.fetchInput(2024, 4)
 
-  @main
-  def main(): Unit = {
+  def main(args: Array[String]): Unit = {
     println(s"Part one is ${partOne(puzzleInput)}")
     println(s"Part one is ${partTwo(puzzleInput)}")
   }
