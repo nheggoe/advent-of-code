@@ -6,10 +6,8 @@ import util.InputFetcher
 object Day02 {
 
   def surfaceArea(l: Int, w: Int, h: Int): Int = {
-    val sideA = l * w
-    val sideB = w * h
-    val sideC = h * l
-    2 * sideA + 2 * sideB + 2 * sideC + math.min(math.min(sideA, sideB), sideC)
+    val sides = Seq(l * w, w * h, h * l)
+    sides.map(_ * 2).sum + sides.min
   }
 
   def ribbonLength(l: Int, w: Int, h: Int): Int = {
@@ -18,9 +16,8 @@ object Day02 {
     ribbon + wrap
   }
 
-  private val pattern = """(\d+)x(\d+)x(\d+)""".r
-
   def parseDimentions(line: String): (Int, Int, Int) = {
+    val pattern = """(\d+)x(\d+)x(\d+)""".r
     line match {
       case pattern(l, w, h) => (l.toInt, w.toInt, h.toInt)
     }
