@@ -23,4 +23,22 @@ class Day03Test extends FunSuite {
     assertEquals(Day03.partOne(input), expected)
   }
 
+  test("Part two case 1") {
+    val input = "^v"
+    val expected = 3
+    assertEquals(Day03.partTwo(input), expected)
+  }
+
+  test("Part two case 2") {
+    val input = "^>v<"
+    val expected = 3
+    assertEquals(Day03.partTwo(input), expected)
+  }
+
+  test("Part two case 3") {
+    val input = "^v^v^v^v^v"
+    val expected = 11
+    assertEquals(Day03.partTwo(input), expected)
+  }
+
 }
