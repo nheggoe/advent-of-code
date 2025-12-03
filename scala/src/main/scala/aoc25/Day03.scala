@@ -9,26 +9,39 @@ object Day03 {
     input.linesIterator.collect(_.toSeq).toSeq
   }
 
-  def findTheLargestJoltage(seq: Seq[Char]): Int = {
-    val largestDigit = seq.max
-    val index = seq.indexOf(largestDigit)
-    if index != seq.indices.last then {
-      val next = seq.slice(index + 1, seq.size).max
-      Seq(largestDigit, next).mkString.toInt
-    } else {
-      val first = seq.takeWhile(_ != largestDigit).max
-      Seq(first, largestDigit).mkString.toInt
-    }
+  def maxPossibleStart(seq: Seq[Char], n: Int): (Char, Int) = {
+    seq.zipWithIndex
+      .sortBy(_._1)(using Ordering[Char].reverse)
+      .collectFirst {
+        case (value, index) if index + n <= seq.size => (value, index)
+      }
+      .get
+  }
+
+  def findTheLargestJoltage(seq: Seq[Char], n: Int): Seq[Char] = {
+    if n == 0 then return Nil
+    val (value, index) = maxPossibleStart(seq, n)
+    Seq(value) ++ findTheLargestJoltage(seq.slice(index + 1, seq.size), n - 1)
   }
 
   def main(args: Array[String]): Unit = {
     val puzzleInput = InputFetcher.fetchInput(2025, 3)
     println(s"Day 3 part one is ${partOne(puzzleInput)}")
+    println(s"Day 3 part two is ${partTwo(puzzleInput)}")
   }
 
-  def partOne(input: String): Int = {
+  def partOne(input: String): Long = {
     val lines = parseInput(input)
-    lines.map(findTheLargestJoltage).sum
+    lines
+      .map(line => findTheLargestJoltage(line, 2).mkString.toLong)
+      .sum
+  }
+
+  def partTwo(input: String): Long = {
+    val lines = parseInput(input)
+    lines
+      .map(line => findTheLargestJoltage(line, 12).mkString.toLong)
+      .sum
   }
 
 }

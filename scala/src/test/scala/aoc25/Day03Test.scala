@@ -10,7 +10,12 @@ class Day03Test extends FunSuite {
                       |818181911112111""".stripMargin
 
   test("Part one example") {
-    val expected = 357
+    val expected = 357L
     assertEquals(Day03.partOne(puzzleInput), expected)
+  }
+
+  test("Part two example") {
+    val expected = 3121910778619L
+    assertEquals(Day03.partTwo(puzzleInput), expected)
   }
 }
