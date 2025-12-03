@@ -4,6 +4,8 @@ ThisBuild / version := "0.1.0-SNAPSHOT"
 
 ThisBuild / scalaVersion := "3.7.3"
 
+Global / excludeLintKeys += idePackagePrefix
+
 lazy val root = (project in file("."))
   .settings(
     name := "advent-of-code",
