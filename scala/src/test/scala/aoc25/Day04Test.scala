@@ -4,6 +4,7 @@ package aoc25
 import munit.FunSuite
 
 class Day04Test extends FunSuite {
+
   val input = """..@@.@@@@.
                 |@@@.@.@.@@
                 |@@@@@.@.@@
@@ -19,5 +20,10 @@ class Day04Test extends FunSuite {
     val expected = 13
     assertEquals(Day04.partOne(input), expected)
   }
- 
+
+  test("Part two example") {
+    val expected = 43
+    assertEquals(Day04.partTwo(input), expected)
+  }
+
 }
