@@ -47,7 +47,7 @@ object Day05 {
     @tailrec
     def loop(
         remaining: List[(Long, Long)],
-        acc: List[(Long, Long)]
+        acc: List[(Long, Long)] = Nil
     ): List[(Long, Long)] = (remaining, acc) match {
       case (Nil, _)                        => acc.reverse
       case (head :: tail, Nil)             => loop(tail, head :: Nil)
@@ -57,13 +57,13 @@ object Day05 {
         else loop(tail, head :: acc)
     }
     val sorted = ranges.sortBy(_._1).toList
-    loop(sorted, Nil)
+    loop(sorted)
   }
 
   def overlaps(a: (Long, Long), b: (Long, Long)): Boolean = {
     val (aStart, aEnd) = a
     val (bStart, bEnd) = b
-    bStart <= aEnd && aStart <= bEnd
+    bStart <= aEnd + 1 && aStart <= bEnd + 1
   }
 
   def merge(a: (Long, Long), b: (Long, Long)): (Long, Long) = {
