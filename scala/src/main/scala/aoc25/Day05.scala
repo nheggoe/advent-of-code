@@ -28,10 +28,10 @@ object Day05 {
   def main(args: Array[String]): Unit = {
     val puzzleInput = InputFetcher.fetchInput(2025, 5)
     println(
-      s"Day 5 part one is ${Benchmark.run("Part one", runs = 10000)(partOne(puzzleInput))}" // avg=0.14 ms
+      s"Day 5 part one is ${Benchmark.run("Part one")(partOne(puzzleInput))}" // avg=132.05 μs
     )
     println(
-      s"Day 5 part one is ${Benchmark.run("Part two", runs = 10000)(partTwo(puzzleInput))}" // avg=0.06 ms
+      s"Day 5 part one is ${Benchmark.run("Part two")(partTwo(puzzleInput))}" // avg=62.59 μs
     )
   }
 
