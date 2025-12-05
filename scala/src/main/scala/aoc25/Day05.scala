@@ -28,7 +28,7 @@ object Day05 {
   def main(args: Array[String]): Unit = {
     val puzzleInput = InputFetcher.fetchInput(2025, 5)
     println(
-      s"Day 5 part one is ${Benchmark.run("Part one", runs = 10000)(partOne(puzzleInput))}" // avg=0.23 ms
+      s"Day 5 part one is ${Benchmark.run("Part one", runs = 10000)(partOne(puzzleInput))}" // avg=0.14 ms
     )
     println(
       s"Day 5 part one is ${Benchmark.run("Part two", runs = 10000)(partTwo(puzzleInput))}" // avg=0.06 ms
@@ -37,8 +37,9 @@ object Day05 {
 
   def partOne(input: String): Int = {
     val (ranges, ingredientIds) = parseInput(input)
+    val uniqueRanges = removeRedundantRanges(ranges)
     ingredientIds.count(id =>
-      ranges.exists(range => range._1 <= id && id <= range._2)
+      uniqueRanges.exists(range => range._1 <= id && id <= range._2)
     )
   }
 
