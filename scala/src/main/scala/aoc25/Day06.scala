@@ -1,7 +1,7 @@
 package dev.nheggoe
 package aoc25
 
-import util.{Benchmark, InputFetcher}
+import util.InputFetcher
 
 object Day06 {
 

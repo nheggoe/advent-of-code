@@ -1,7 +1,7 @@
 package dev.nheggoe
 package aoc25
 
-import munit.{FunSuite, Location}
+import munit.FunSuite
 
 class Day06Test extends FunSuite {
 
