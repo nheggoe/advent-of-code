@@ -7,8 +7,8 @@ object Day04 {
 
   extension (s: String) {
     def md5: String = {
-      val digest = MessageDigest.getInstance("MD5")
-      digest
+      MessageDigest
+        .getInstance("MD5")
         .digest(s.getBytes("UTF-8"))
         .map("%02x".format(_))
         .mkString
