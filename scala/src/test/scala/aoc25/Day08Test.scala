@@ -30,4 +30,9 @@ class Day08Test extends FunSuite {
     assertEquals(Day08.partOne(puzzleInput, 10), expected)
   }
 
+  test("Part two") {
+    val expected = BigInt(25272)
+    assertEquals(Day08.partTwo(puzzleInput), expected)
+  }
+
 }

@@ -28,14 +28,7 @@ object Day08 {
   def main(args: Array[String]): Unit = {
     val puzzleInput = InputFetcher.fetchInput(2025, 8)
     println(s"Day 8 part one is ${partOne(puzzleInput, 1000)}")
-  }
-
-  def selections[A](xs: List[A]): List[(A, List[A])] = xs match {
-    case Nil          => Nil
-    case head :: tail =>
-      (head, tail) :: selections(tail).map { case (a, rest) =>
-        (a, head :: rest)
-      }
+    println(s"Day 8 part two is ${partTwo(puzzleInput)}")
   }
 
   def partOne(input: String, connection: Int): Long = {
@@ -49,6 +42,26 @@ object Day08 {
       .take(connection)
       .foreach { case Seq(p, q) => unionFind.union(indexes(p), indexes(q)) }
     unionFind.size.toSeq.sorted.reverse.take(3).product
+  }
+
+  def partTwo(input: String): BigInt = {
+    val points = parseInput(input)
+    val indexes = points.zipWithIndex.toMap
+    val unionFind = UnionFind(points.size)
+    val connections = points
+      .combinations(2)
+      .toSeq
+      .sortBy { case Seq(p, q) => p.euclideanDistance(q) }
+    val history = connections
+      .scanLeft(unionFind.size.toVector) { case (_, Seq(p, q)) =>
+        unionFind.union(indexes(p), indexes(q))
+        unionFind.size.toVector
+      }
+    val max = history.last.max
+    val ans = history.zipWithIndex.collectFirst {
+      case (line, idx) if line.max == max => idx
+    }
+    connections(ans.get - 1).map(points => BigInt(points.x)).product
   }
 
   private class UnionFind(n: Int) {
