@@ -23,7 +23,12 @@ class Day07Test extends FunSuite {
                         |...............""".stripMargin
 
   test("Part one") {
-    val expected = 21
+    val expected = 21L
     assertEquals(Day07.partOne(input), expected)
+  }
+
+  test("part two") {
+    val expected = 40L
+    assertEquals(Day07.partTwo(input), expected)
   }
 }
