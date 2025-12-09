@@ -3,6 +3,9 @@ package aoc25
 
 import util.InputFetcher
 
+import scala.annotation.tailrec
+import scala.util.chaining.scalaUtilChainingOps
+
 object Day08 {
 
   def parseInput(input: String): Seq[Point] = {
@@ -11,18 +14,17 @@ object Day08 {
     }.toSeq
   }
 
-  case class Point(x: Int, y: Int, z: Int) {
-    override def toString: String = s"($x, $y, $z)"
-    override def equals(obj: Any): Boolean = obj match {
-      case Point(otherX, otherY, otherZ) =>
-        x == otherX && y == otherY && z == otherZ
-      case _ => false
-    }
-    def euclideanDistance(other: Point): Double = {
-      val p = Seq(x, y, z)
-      val q = Seq(other.x, other.y, other.z)
-      math.sqrt(p.zip(q).map(_ - _).map(math.pow(_, 2)).sum)
-    }
+  case class Point(x: Int, y: Int, z: Int)
+
+  def euclideanDistance(p: Point, q: Point): Double = {
+    val pCord = p.productIterator.collect { case int: Int => int }
+    val qCord = q.productIterator.collect { case int: Int => int }
+    pCord
+      .zip(qCord)
+      .map(_ - _)
+      .map(math.pow(_, 2))
+      .sum
+      .pipe(math.sqrt)
   }
 
   def main(args: Array[String]): Unit = {
@@ -37,10 +39,12 @@ object Day08 {
     val unionFind = UnionFind(points.size)
     points
       .combinations(2)
+      .map(c => (c.head, c.last))
       .toSeq
-      .sortBy { case Seq(p, q) => p.euclideanDistance(q) }
+      .sortBy(euclideanDistance)
       .take(connection)
-      .foreach { case Seq(p, q) => unionFind.union(indexes(p), indexes(q)) }
+      .map((a, b) => (indexes(a), indexes(b)))
+      .foreach(unionFind.union)
     unionFind.size.toSeq.sorted.reverse.take(3).product
   }
 
@@ -50,25 +54,36 @@ object Day08 {
     val unionFind = UnionFind(points.size)
     val connections = points
       .combinations(2)
+      .map(c => (c.head, c.last))
       .toSeq
-      .sortBy { case Seq(p, q) => p.euclideanDistance(q) }
-    val history = connections
-      .scanLeft(unionFind.size.toVector) { case (_, Seq(p, q)) =>
-        unionFind.union(indexes(p), indexes(q))
-        unionFind.size.toVector
-      }
-    val max = history.last.max
-    val ans = history.zipWithIndex.collectFirst {
-      case (line, idx) if line.max == max => idx
+      .sortBy(euclideanDistance)
+
+    def allConnected: Boolean = {
+      val head = unionFind.find(0)
+      (1 until points.size).forall(unionFind.find(_) == head)
     }
-    connections(ans.get - 1).map(points => points.x.toLong).product
+
+    @tailrec
+    def loop(remaining: List[(Point, Point)], idx: Int = 0): Int =
+      remaining match {
+        case (p_1, p_2) :: tail =>
+          unionFind.union(indexes(p_1), indexes(p_2))
+          if allConnected then idx
+          else loop(tail, idx + 1)
+        case Nil => -1
+      }
+
+    val ans = loop(connections.toList)
+    connections(ans) match {
+      case (Point(x_1, _, _), Point(x_2, _, _)) => x_1.toLong * x_2.toLong
+    }
   }
 
   private class UnionFind(n: Int) {
     private val parent = Array.tabulate(n)(identity)
     val size: Array[Int] = Array.fill(n)(1)
 
-    private def find(x: Int): Int = {
+    def find(x: Int): Int = {
       if parent(x) != x then parent(x) = find(parent(x))
       parent(x)
     }
