@@ -44,7 +44,7 @@ object Day08 {
     unionFind.size.toSeq.sorted.reverse.take(3).product
   }
 
-  def partTwo(input: String): BigInt = {
+  def partTwo(input: String): Long = {
     val points = parseInput(input)
     val indexes = points.zipWithIndex.toMap
     val unionFind = UnionFind(points.size)
@@ -61,7 +61,7 @@ object Day08 {
     val ans = history.zipWithIndex.collectFirst {
       case (line, idx) if line.max == max => idx
     }
-    connections(ans.get - 1).map(points => BigInt(points.x)).product
+    connections(ans.get - 1).map(points => points.x.toLong).product
   }
 
   private class UnionFind(n: Int) {

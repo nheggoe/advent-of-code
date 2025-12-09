@@ -31,7 +31,7 @@ class Day08Test extends FunSuite {
   }
 
   test("Part two") {
-    val expected = BigInt(25272)
+    val expected = 25272L
     assertEquals(Day08.partTwo(puzzleInput), expected)
   }
 
