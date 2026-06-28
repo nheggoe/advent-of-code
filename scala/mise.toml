@@ -8,29 +8,41 @@ gum = "latest"
 run = "sbt 'cleanFull; compile'"
 
 [tasks.aoc]
-description = "Pick a year, then a day, and run that solution"
+description = "Run a solution. Usage: mise run aoc [year] [day] — args bypass the picker (e.g. 25 9, 2025 09, aoc25 Day09)"
 run = """
 #!/usr/bin/env bash
 set -euo pipefail
 
 src="src/main/scala/dev/nheggoe"
 
-# Stage 1: choose a year (shown as 20YY, e.g. aoc25 -> 2025; value returned is aoc25)
-year=$(
-  for dir in "$src"/aoc[0-9][0-9]; do
-    yy=$(basename "$dir")
-    printf '20%s:%s\\n' "${yy#aoc}" "$yy"
-  done | gum choose --header "Select year" --label-delimiter=':'
-)
-[ -n "$year" ] || exit 0
+# Stage 1: resolve year as an `aocYY` dir name (arg bypasses the picker)
+if [ $# -ge 1 ]; then
+  yy="${1#aoc}"           # strip optional aoc prefix (aoc25 -> 25, 2025 -> 2025)
+  year="aoc${yy: -2}"     # keep last two digits
+  [ -d "$src/$year" ] || { echo "No such year: $1 ($src/$year)" >&2; exit 1; }
+else
+  year=$(
+    for dir in "$src"/aoc[0-9][0-9]; do
+      d=$(basename "$dir")
+      printf '20%s:%s\\n' "${d#aoc}" "$d"
+    done | gum choose --header "Select year" --label-delimiter=':'
+  )
+  [ -n "$year" ] || exit 0
+fi
 
-# Stage 2: choose a day within that year
-day=$(
-  for f in "$src/$year"/Day*.scala; do
-    basename "$f" .scala
-  done | gum choose --header "Select day"
-)
-[ -n "$day" ] || exit 0
+# Stage 2: resolve day as a `DayNN` object name (arg bypasses the picker)
+if [ $# -ge 2 ]; then
+  dd="${2#[Dd]ay}"        # strip optional Day prefix (Day09 -> 09)
+  day=$(printf 'Day%02d' "$((10#$dd))")  # zero-pad, 10# avoids octal on 08/09
+  [ -f "$src/$year/$day.scala" ] || { echo "No such day: $2 ($src/$year/$day.scala)" >&2; exit 1; }
+else
+  day=$(
+    for f in "$src/$year"/Day*.scala; do
+      basename "$f" .scala
+    done | gum choose --header "Select day"
+  )
+  [ -n "$day" ] || exit 0
+fi
 
 target="dev.nheggoe.$year.$day"
 gum style --foreground 212 "Running $target"
