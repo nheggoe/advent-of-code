@@ -17,7 +17,10 @@ object InputFetcher {
     else
       val input = fetchFromInternet(date).body
       if input.toLowerCase().contains("please log in")
-      then throw new IllegalStateException("Please refresh the AOC cookie in `.env`")
+      then
+        throw new IllegalStateException(
+          "Please refresh the AOC cookie in `.env`"
+        )
       else println("Fetched puzzle input from internet")
       saveToCache(inputFile, input)
       input
@@ -25,7 +28,7 @@ object InputFetcher {
 
   extension (date: Date)
     private def toPath: Path =
-      Path.of("cache", date.year.toDirectory, date.day.toFileName)
+      Path.of("cache", date.year.toDirectory, s"${date.day.toFileName}.txt")
 
   extension (year: Year)
     private def toDirectory: String =
