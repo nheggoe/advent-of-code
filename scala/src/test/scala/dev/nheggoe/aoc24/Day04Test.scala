@@ -8,15 +8,15 @@ import munit.FunSuite
 class Day04Test extends FunSuite:
 
   private val exampleInput = """MMMSXXMASM
-                           |MSAMXMSMSA
-                           |AMXSXMAAMM
-                           |MSAMASMSMX
-                           |XMASAMXAMM
-                           |XXAMMXXAMA
-                           |SMSMSASXSS
-                           |SAXAMASAAA
-                           |MAMMMXMMMM
-                           |MXMXAXMASX""".stripMargin
+                               |MSAMXMSMSA
+                               |AMXSXMAAMM
+                               |MSAMASMSMX
+                               |XMASAMXAMM
+                               |XXAMMXXAMA
+                               |SMSMSASXSS
+                               |SAXAMASAAA
+                               |MAMMMXMMMM
+                               |MXMXAXMASX""".stripMargin
 
   test("Day 4 Part One") {
     val expected = 18
