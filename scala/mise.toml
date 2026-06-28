@@ -1,0 +1,38 @@
+[tools]
+java = "25"
+scala = "3.8.4"
+sbt = "2.0.0"
+gum = "latest"
+
+[tasks.clean-build]
+run = "sbt 'cleanFull; compile'"
+
+[tasks.aoc]
+description = "Pick a year, then a day, and run that solution"
+run = """
+#!/usr/bin/env bash
+set -euo pipefail
+
+src="src/main/scala/dev/nheggoe"
+
+# Stage 1: choose a year (shown as 20YY, e.g. aoc25 -> 2025; value returned is aoc25)
+year=$(
+  for dir in "$src"/aoc[0-9][0-9]; do
+    yy=$(basename "$dir")
+    printf '20%s:%s\\n' "${yy#aoc}" "$yy"
+  done | gum choose --header "Select year" --label-delimiter=':'
+)
+[ -n "$year" ] || exit 0
+
+# Stage 2: choose a day within that year
+day=$(
+  for f in "$src/$year"/Day*.scala; do
+    basename "$f" .scala
+  done | gum choose --header "Select day"
+)
+[ -n "$day" ] || exit 0
+
+target="dev.nheggoe.$year.$day"
+gum style --foreground 212 "Running $target"
+exec sbt "runMain $target"
+"""
