@@ -30,5 +30,6 @@ trait AocDay(n: Int)(using year: Year):
   def partTwo(input: String): Any
 
   def main(args: Array[String]): Unit =
-    println(f"Day $n%02d part one is ${partOne(input)}")
-    println(f"Day $n%02d part two is ${partTwo(input)}")
+    val day = f"Day$n%02d"
+    println(s"[$year $day.partOne] ${partOne(input)}")
+    println(s"[$year $day.partTwo] ${partTwo(input)}")
