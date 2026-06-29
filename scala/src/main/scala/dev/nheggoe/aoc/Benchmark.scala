@@ -9,7 +9,7 @@ object Benchmark {
 
     val start = System.nanoTime()
     var warmupCount = 0
-    while ((System.nanoTime() - start) / 1e6 < warmupMs) {
+    while (System.nanoTime() - start) / 1e6 < warmupMs do {
       block
       warmupCount += 1
     }
@@ -21,7 +21,7 @@ object Benchmark {
     }
 
     println(
-      f"$label: min=${times.min}%.2f µs, avg=${times.sum / runs}%.2f μs, max=${times.max}%.2f µs"
+      f"[bench $label] min=${times.min}%.2f µs, avg=${times.sum / runs}%.2f μs, max=${times.max}%.2f µs"
     )
     result
   }

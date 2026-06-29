@@ -1,15 +1,23 @@
 package dev.nheggoe.aoc
 
-import com.sun.org.apache.xalan.internal.lib.ExsltDatetime.year
 import sttp.client4.Response
 import sttp.client4.quick.*
 
 import java.nio.file.{Files, Path, Paths}
 import scala.jdk.CollectionConverters.*
 
+opaque type Input = String
+
+object Input:
+  def apply(s: String): Input = s
+
+  extension (i: Input) def value: String = i
+
+  given Conversion[String, Input] = Input(_)
+
 object InputFetcher {
 
-  def fetchInput(using date: Date): String = {
+  def fetchInput(using date: Date): Input = {
     val inputFile = date.toPath
 
     if Files.exists(inputFile)

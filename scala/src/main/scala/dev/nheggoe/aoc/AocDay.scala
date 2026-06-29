@@ -24,12 +24,20 @@ case class Date(year: Year, day: Day)
 trait AocDay(n: Int)(using year: Year):
   given Date(year, Day(n))
 
-  protected lazy val input: String = InputFetcher.fetchInput
+  protected def input(using i: Input): String = i.value
 
-  def partOne(input: String): Any
-  def partTwo(input: String): Any
+  def partOne(using Input): Any
+  def partTwo(using Input): Any
 
   def main(args: Array[String]): Unit =
-    val day = f"Day$n%02d"
-    println(s"[$year $day.partOne] ${partOne(input)}")
-    println(s"[$year $day.partTwo] ${partTwo(input)}")
+    given Input = InputFetcher.fetchInput
+    logPartOne(partOne)
+    logPartTwo(partTwo)
+
+  val day = f"Day$n%02d"
+
+  def logPartOne(ans: => Any): Unit =
+    println(s"[$year $day.partOne] $ans")
+
+  def logPartTwo(ans: => Any): Unit =
+    println(s"[$year $day.partTwo] $ans")
