@@ -2,7 +2,12 @@ name := "advent-of-code"
 scalaVersion := "3.8.4"
 
 scalacOptions ++= Seq(
-  "-deprecation"
+  "-deprecation",
+  "-source:future",
+  "-feature",
+  "-unchecked",
+  "-Wunused:all",
+  "-explain"
 )
 
 val toolkitVersion = "0.9.2"

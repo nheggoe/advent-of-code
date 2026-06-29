@@ -1,7 +1,7 @@
 [tools]
 java = "25"
 scala = "3.8.4"
-sbt = "2.0.0"
+sbt = "2.0.1"
 gum = "latest"
 
 [tasks.clean-build]
