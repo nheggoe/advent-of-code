@@ -1,6 +1,6 @@
 package dev.nheggoe.aoc24
 
-import dev.nheggoe.aoc.AocDay
+import dev.nheggoe.aoc.{AocDay, Input}
 
 object Day04 extends AocDay(4) {
 
@@ -67,12 +67,13 @@ object Day04 extends AocDay(4) {
       for (i <- data.indices) {
         for (j <- data.head.indices) {
           if (
-            data(i)(j) == 'A'
-            && i - 1 >= 0
-            && data.indices.contains(i + 1)
-            && j - 1 >= 0
-            && data.head.indices.contains(j + 1)
-          )
+              data(i)(j) == 'A'
+              && i - 1 >= 0
+              && data.indices.contains(i + 1)
+              && j - 1 >= 0
+              && data.head.indices.contains(j + 1)
+            )
+          then
             val matrix = Matrix(
               for { a <- i - 1 to i + 1 } yield {
                 for { b <- j - 1 to j + 1 } yield {
@@ -93,12 +94,12 @@ object Day04 extends AocDay(4) {
     }
   }
 
-  def partOne(input: String): Int = {
+  def partOne(using Input): Int = {
     val matrix = Matrix.fromLines(input.split("\n").toSeq)
     matrix.countWord("XMAS")
   }
 
-  def partTwo(input: String): Int = {
+  def partTwo(using Input): Int = {
     val matrix = Matrix.fromLines(input.split("\n").toSeq)
     val target = "MAS"
     val matrices = matrix.fromA()

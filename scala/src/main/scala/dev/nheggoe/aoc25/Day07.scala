@@ -1,6 +1,6 @@
 package dev.nheggoe.aoc25
 
-import dev.nheggoe.aoc.AocDay
+import dev.nheggoe.aoc.{AocDay, Input}
 
 object Day07 extends AocDay(7) {
 
@@ -36,14 +36,14 @@ object Day07 extends AocDay(7) {
     }
   }
 
-  def partOne(input: String): Long = {
+  def partOne(using Input): Long = {
     val (start, lines) = parseInput(input)
     val width = lines.head.size
     val initial = Vector.fill(width)(0L).updated(start, 1L)
     simulateBeam(lines, initial)._2
   }
 
-  def partTwo(input: String): Long = {
+  def partTwo(using Input): Long = {
     val (start, lines) = parseInput(input)
     val width = lines.head.size
     val initial = Vector.fill(width)(0L).updated(start, 1L)

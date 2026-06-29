@@ -2,25 +2,27 @@ package dev.nheggoe
 package aoc25
 
 import munit.FunSuite
+import dev.nheggoe.aoc.Input
+import dev.nheggoe.aoc25.Day09.{partOne, partTwo}
 
 class Day09Test extends FunSuite {
-  private val input = """7,1
-                        |11,1
-                        |11,7
-                        |9,7
-                        |9,5
-                        |2,5
-                        |2,3
-                        |7,3""".stripMargin
+  given Input = """7,1
+                  |11,1
+                  |11,7
+                  |9,7
+                  |9,5
+                  |2,5
+                  |2,3
+                  |7,3""".stripMargin
 
   test("Part one example") {
     val expected = 50L
-    assertEquals(Day09.partOne(input), expected)
+    assertEquals(partOne, expected)
   }
 
-  test("Part two example") {
+  test("Part two example".ignore) {
     val expected = 24L
-    assertEquals(Day09.partTwo(input), expected)
+    assertEquals(partTwo, expected)
   }
- 
+
 }

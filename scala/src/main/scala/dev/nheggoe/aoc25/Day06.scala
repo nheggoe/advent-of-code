@@ -1,6 +1,6 @@
 package dev.nheggoe.aoc25
 
-import dev.nheggoe.aoc.AocDay
+import dev.nheggoe.aoc.{AocDay, Input}
 
 object Day06 extends AocDay(6) {
 
@@ -24,7 +24,7 @@ object Day06 extends AocDay(6) {
       .transpose
   }
 
-  def partOne(input: String): Long = {
+  def partOne(using Input): Long = {
     val instructions = parseInput(input)
     instructions.map { ins =>
       val nums = ins.take(ins.size - 1).map(_.strip).map(_.toLong)
@@ -36,7 +36,7 @@ object Day06 extends AocDay(6) {
     }.sum
   }
 
-  def partTwo(input: String): Long = {
+  def partTwo(using Input): Long = {
     val instructions = parseInput(input)
     instructions.map { ins =>
       val nums = ins

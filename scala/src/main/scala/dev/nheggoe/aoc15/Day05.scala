@@ -1,14 +1,14 @@
 package dev.nheggoe.aoc15
 
-import dev.nheggoe.aoc.AocDay
+import dev.nheggoe.aoc.{AocDay, Input}
 
 object Day05 extends AocDay(5) {
 
-  def partOne(input: String): Int = {
+  def partOne(using Input): Int = {
     input.linesIterator.count(isNiceStringPartOne)
   }
 
-  def partTwo(input: String): Int = {
+  def partTwo(using Input): Int = {
     input.linesIterator.count(isNiceStringPartTwo)
   }
 

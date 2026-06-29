@@ -1,11 +1,9 @@
 package dev.nheggoe.aoc15
 
-import dev.nheggoe.aoc.AocDay
+import dev.nheggoe.aoc.{AocDay, Input}
 import java.security.MessageDigest
 
 object Day04 extends AocDay(4) {
-
-  override protected lazy val input: String = "ckczppom"
 
   extension (s: String) {
     def md5: String = {
@@ -17,11 +15,11 @@ object Day04 extends AocDay(4) {
     }
   }
 
-  def partOne(input: String): Int = {
+  def partOne(using Input): Int = {
     findKey(input, "00000")
   }
 
-  def partTwo(input: String): Int = {
+  def partTwo(using Input): Int = {
     findKey(input, "000000")
   }
 

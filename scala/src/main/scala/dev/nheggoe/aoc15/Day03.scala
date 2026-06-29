@@ -1,5 +1,5 @@
 package dev.nheggoe.aoc15
-import dev.nheggoe.aoc.AocDay
+import dev.nheggoe.aoc.{AocDay, Input}
 
 object Day03 extends AocDay(3) {
 
@@ -14,11 +14,11 @@ object Day03 extends AocDay(3) {
     }
   }
 
-  def partOne(input: String): Int = {
+  def partOne(using Input): Int = {
     input.scanLeft(Position(0, 0))(_ next _).toSet.size
   }
 
-  def partTwo(input: String): Int = {
+  def partTwo(using Input): Int = {
     val (santa, roboSanta) = input.zipWithIndex.partition(_._2 % 2 == 0)
     val santaPosition = santa.map(_._1).scanLeft(Position(0, 0))(_ next _)
     val roboPosition = roboSanta.map(_._1).scanLeft(Position(0, 0))(_ next _)

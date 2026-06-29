@@ -8,24 +8,24 @@ class Day02Test extends FunSuite {
   test("Part one case 1") {
     val input = "2x3x4"
     val expected = 58
-    assertEquals(Day02.partOne(input), expected)
+    assertEquals(Day02.partOne(using input), expected)
   }
 
   test("Part one case 2") {
     val input = "1x1x10"
     val expected = 43
-    assertEquals(Day02.partOne(input), expected)
+    assertEquals(Day02.partOne(using input), expected)
   }
 
   test("Part two case 1") {
     val input = "2x3x4"
     val expected = 34
-    assertEquals(Day02.partTwo(input), expected)
+    assertEquals(Day02.partTwo(using input), expected)
   }
 
   test("Part two case 2") {
     val input = "1x1x10"
     val expected = 14
-    assertEquals(Day02.partTwo(input), expected)
+    assertEquals(Day02.partTwo(using input), expected)
   }
 }

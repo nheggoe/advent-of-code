@@ -1,5 +1,5 @@
 package dev.nheggoe.aoc15
-import dev.nheggoe.aoc.AocDay
+import dev.nheggoe.aoc.{AocDay, Input}
 
 object Day02 extends AocDay(2) {
 
@@ -21,11 +21,11 @@ object Day02 extends AocDay(2) {
     }
   }
 
-  def partOne(input: String): Int = {
+  def partOne(using Input): Int = {
     input.linesIterator.map(parseDimentions).map(surfaceArea).sum
   }
 
-  def partTwo(input: String): Int = {
+  def partTwo(using Input): Int = {
     input.linesIterator.map(parseDimentions).map(ribbonLength).sum
   }
 

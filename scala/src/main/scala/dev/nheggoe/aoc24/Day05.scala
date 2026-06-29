@@ -1,24 +1,23 @@
 package dev.nheggoe.aoc24
 
-import dev.nheggoe.aoc.AocDay
+import dev.nheggoe.aoc.{AocDay, Input}
 
 import scala.collection.mutable.ArrayBuffer
 
 object Day05 extends AocDay(5) {
 
-
   def parseInput(input: String): (Seq[String], Seq[String]) = {
     input.linesIterator.filterNot(_.isBlank).toSeq.partition(_.contains('|'))
   }
 
-  def partOne(input: String): Int = {
+  def partOne(using Input): Int = {
     pageSeq(input)
       .filter(seq => isValid(seq, indexMap(input)))
       .map(seq => seq(seq.size / 2))
       .sum
   }
 
-  def partTwo(input: String): Int = {
+  def partTwo(using Input): Int = {
     val ruleIndex = indexMap(input)
     pageSeq(input)
       .filterNot(isValid(_, ruleIndex))
@@ -36,7 +35,7 @@ object Day05 extends AocDay(5) {
 
     for (i <- size - 1 to 1 by -1) {
       var mustComeAfter = ruleIndex.getOrElse(mutableCopy(i), Set.empty[Int])
-      while (mutableCopy.iterator.slice(0, i).exists(mustComeAfter)) {
+      while mutableCopy.iterator.slice(0, i).exists(mustComeAfter) do {
         val temp = mutableCopy.remove(i)
         mutableCopy.prepend(temp)
         mustComeAfter = ruleIndex.getOrElse(mutableCopy(i), Set.empty[Int])

@@ -1,6 +1,6 @@
 package dev.nheggoe.aoc24
 
-import dev.nheggoe.aoc.AocDay
+import dev.nheggoe.aoc.{AocDay, Input}
 
 object Day02 extends AocDay(2) {
 
@@ -29,10 +29,10 @@ object Day02 extends AocDay(2) {
       }
   }
 
-  def partOne(input: String): Int =
+  def partOne(using Input): Int =
     input.split("\n").map(parseLine).count(_.isSafe)
 
-  def partTwo(input: String): Int =
+  def partTwo(using Input): Int =
     input.split("\n").map(parseLine).count(_.isDampenedSafe)
 
 }

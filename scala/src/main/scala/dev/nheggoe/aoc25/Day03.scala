@@ -1,6 +1,6 @@
 package dev.nheggoe.aoc25
 
-import dev.nheggoe.aoc.AocDay
+import dev.nheggoe.aoc.{AocDay, Input}
 
 object Day03 extends AocDay(3) {
 
@@ -23,14 +23,14 @@ object Day03 extends AocDay(3) {
     Seq(value) ++ findTheLargestJoltage(seq.slice(index + 1, seq.size), n - 1)
   }
 
-  def partOne(input: String): Long = {
+  def partOne(using Input): Long = {
     val lines = parseInput(input)
     lines
       .map(line => findTheLargestJoltage(line, 2).mkString.toLong)
       .sum
   }
 
-  def partTwo(input: String): Long = {
+  def partTwo(using Input): Long = {
     val lines = parseInput(input)
     lines
       .map(line => findTheLargestJoltage(line, 12).mkString.toLong)

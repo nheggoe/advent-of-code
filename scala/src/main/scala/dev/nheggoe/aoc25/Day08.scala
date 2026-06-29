@@ -1,6 +1,6 @@
 package dev.nheggoe.aoc25
 
-import dev.nheggoe.aoc.AocDay
+import dev.nheggoe.aoc.{AocDay, Input}
 
 import scala.annotation.tailrec
 import scala.util.chaining.scalaUtilChainingOps
@@ -26,7 +26,7 @@ object Day08 extends AocDay(8) {
       .pipe(math.sqrt)
   }
 
-  def partOne(input: String): Long = partOne(input, 1000)
+  def partOne(using Input): Long = partOne(input, 1000)
 
   def partOne(input: String, connection: Int): Long = {
     val points = parseInput(input)
@@ -43,7 +43,7 @@ object Day08 extends AocDay(8) {
     unionFind.size.toSeq.sorted.reverse.take(3).product
   }
 
-  def partTwo(input: String): Long = {
+  def partTwo(using Input): Long = {
     val points = parseInput(input)
     val indexes = points.zipWithIndex.toMap
     val unionFind = UnionFind(points.size)

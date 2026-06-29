@@ -9,50 +9,50 @@ class Day01Test extends FunSuite {
     val inputOne = "(())"
     val inputTwo = "()()"
     val expected = 0
-    assertEquals(Day01.partOne(inputOne), expected)
-    assertEquals(Day01.partOne(inputTwo), expected)
+    assertEquals(Day01.partOne(using inputOne), expected)
+    assertEquals(Day01.partOne(using inputTwo), expected)
   }
 
   test("Part one case 2") {
     val inputOne = "((("
     val inputTwo = "(()(()("
     val expected = 3
-    assertEquals(Day01.partOne(inputOne), expected)
-    assertEquals(Day01.partOne(inputTwo), expected)
+    assertEquals(Day01.partOne(using inputOne), expected)
+    assertEquals(Day01.partOne(using inputTwo), expected)
   }
 
   test("Part one case 3") {
     val inputOne = "))((((("
     val expected = 3
-    assertEquals(Day01.partOne(inputOne), expected)
+    assertEquals(Day01.partOne(using inputOne), expected)
   }
 
   test("Part one case 4") {
     val inputOne = "())"
     val inputTwo = "))("
     val expected = -1
-    assertEquals(Day01.partOne(inputOne), expected)
-    assertEquals(Day01.partOne(inputTwo), expected)
+    assertEquals(Day01.partOne(using inputOne), expected)
+    assertEquals(Day01.partOne(using inputTwo), expected)
   }
 
   test("Part one case 5") {
     val inputOne = ")))"
     val inputTwo = ")())())"
     val expected = -3
-    assertEquals(Day01.partOne(inputOne), expected)
-    assertEquals(Day01.partOne(inputTwo), expected)
+    assertEquals(Day01.partOne(using inputOne), expected)
+    assertEquals(Day01.partOne(using inputTwo), expected)
   }
 
   test("Part two case 1") {
     val input = ")"
     val expected = 1
-    assertEquals(Day01.partTwo(input), expected)
+    assertEquals(Day01.partTwo(using input), expected)
   }
 
   test("Part two case 2") {
     val input = "()())"
     val expected = 5
-    assertEquals(Day01.partTwo(input), expected)
+    assertEquals(Day01.partTwo(using input), expected)
   }
 
 }

@@ -1,6 +1,6 @@
 package dev.nheggoe.aoc25
 
-import dev.nheggoe.aoc.{AocDay, Benchmark}
+import dev.nheggoe.aoc.{AocDay, Benchmark, Input, InputFetcher}
 
 import scala.annotation.tailrec
 
@@ -25,15 +25,12 @@ object Day05 extends AocDay(5) {
   }
 
   override def main(args: Array[String]): Unit = {
-    println(
-      s"Day 5 part one is ${Benchmark.run("Part one")(partOne(input))}" // avg=132.05 μs
-    )
-    println(
-      s"Day 5 part two is ${Benchmark.run("Part two")(partTwo(input))}" // avg=62.59 μs
-    )
+    given Input = InputFetcher.fetchInput
+    logPartOne(Benchmark.run("Part one")(partOne))
+    logPartTwo(Benchmark.run("Part two")(partTwo))
   }
 
-  def partOne(input: String): Int = {
+  def partOne(using Input): Int = {
     val (ranges, ingredientIds) = parseInput(input)
     val uniqueRanges = removeRedundantRanges(ranges)
     ingredientIds.count(id =>
@@ -70,7 +67,7 @@ object Day05 extends AocDay(5) {
     (math.min(aStart, bStart), math.max(aEnd, bEnd))
   }
 
-  def partTwo(input: String): Long = {
+  def partTwo(using Input): Long = {
     val (ranges, _) = parseInput(input)
     removeRedundantRanges(ranges)
       .map(range => range._2 - range._1 + 1)

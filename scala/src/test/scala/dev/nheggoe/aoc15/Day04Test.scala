@@ -8,12 +8,12 @@ class Day04Test extends FunSuite {
   test("Part one example") {
     val key = "abcdef"
     val expected = 609043
-    assertEquals(Day04.partOne(key), expected)
+    assertEquals(Day04.partOne(using key), expected)
   }
 
   test("Part one case 2") {
     val key = "pqrstuv"
     val expected = 1048970
-    assertEquals(Day04.partOne(key), expected)
+    assertEquals(Day04.partOne(using key), expected)
   }
 }

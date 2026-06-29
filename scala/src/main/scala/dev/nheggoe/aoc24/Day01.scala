@@ -1,6 +1,6 @@
 package dev.nheggoe.aoc24
 
-import dev.nheggoe.aoc.AocDay
+import dev.nheggoe.aoc.{AocDay, Input}
 
 /** @see `https://adventofcode.com/2024/day/1` */
 object Day01 extends AocDay(1) {
@@ -15,7 +15,7 @@ object Day01 extends AocDay(1) {
     (a.sorted, b.sorted)
   }
 
-  def partOne(input: String): Int =
+  def partOne(using Input): Int =
     val (left, right) = leftAndRight(input)
     left
       .zip(right)
@@ -24,7 +24,7 @@ object Day01 extends AocDay(1) {
       }
       .sum
 
-  def partTwo(input: String): Int =
+  def partTwo(using Input): Int =
     val (left, right) = leftAndRight(input)
     left.map(n => right.count(_ == n) * n).sum
 }

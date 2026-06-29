@@ -1,6 +1,6 @@
 package dev.nheggoe.aoc24
 
-import dev.nheggoe.aoc.AocDay
+import dev.nheggoe.aoc.{AocDay, Input}
 
 import scala.util.matching.Regex
 
@@ -10,7 +10,7 @@ object Day03 extends AocDay(3) {
   private val allPattern: Regex =
     """(mul\((\d+),(\d+)\)|do\(\)|don't\(\))""".r
 
-  def partOne(input: String): Long =
+  def partOne(using Input): Long =
     mulPattern
       .findAllIn(input)
       .map { case mulPattern(a, b) =>
@@ -18,7 +18,7 @@ object Day03 extends AocDay(3) {
       }
       .sum
 
-  def partTwo(input: String): Long = {
+  def partTwo(using Input): Long = {
     val (_, res2) = allPattern
       .findAllIn(input)
       .foldLeft((true, 0: Long)) {

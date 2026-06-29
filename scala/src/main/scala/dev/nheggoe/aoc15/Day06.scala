@@ -1,6 +1,6 @@
 package dev.nheggoe.aoc15
 
-import dev.nheggoe.aoc.AocDay
+import dev.nheggoe.aoc.{AocDay, Input}
 
 object Day06 extends AocDay(6) {
 
@@ -51,13 +51,13 @@ object Day06 extends AocDay(6) {
     def totalBrightness: Long = lights.flatten.map(_.toLong).sum
   }
 
-  def partOne(input: String): Int = {
+  def partOne(using Input): Int = {
     val grid = Grid()
     input.linesIterator.foreach(grid.execInsPartOne)
     grid.countLit
   }
 
-  def partTwo(input: String): Long = {
+  def partTwo(using Input): Long = {
     val grid = Grid()
     input.linesIterator.foreach(grid.execInsPartTwo)
     grid.totalBrightness

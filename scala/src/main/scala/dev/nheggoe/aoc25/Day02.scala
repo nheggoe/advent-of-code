@@ -1,6 +1,6 @@
 package dev.nheggoe.aoc25
 
-import dev.nheggoe.aoc.AocDay
+import dev.nheggoe.aoc.{AocDay, Input}
 
 import scala.collection.immutable.NumericRange
 
@@ -18,7 +18,7 @@ object Day02 extends AocDay(2) {
       }
   }
 
-  def partOne(input: String): BigInt = {
+  def partOne(using Input): BigInt = {
     parseInput(input).flatMap(_.filter(isRepeatedTwice)).sum
   }
 
@@ -32,7 +32,7 @@ object Day02 extends AocDay(2) {
     }
   }
 
-  def partTwo(input: String): BigInt = {
+  def partTwo(using Input): BigInt = {
     parseInput(input).flatMap(_.filter(isInvalidId)).sum
   }
 

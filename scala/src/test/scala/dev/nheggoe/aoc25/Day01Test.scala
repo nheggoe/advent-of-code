@@ -2,6 +2,7 @@ package dev.nheggoe
 package aoc25
 
 import munit.FunSuite
+import dev.nheggoe.aoc.Input
 
 class Day01Test extends FunSuite {
   val puzzleInput: String = """L68
@@ -14,6 +15,7 @@ class Day01Test extends FunSuite {
                               |L99
                               |R14
                               |L82""".stripMargin
+  given Input = puzzleInput
 
   test("Update Position") {
     val nums = Seq(-68, -30, 48, -5, 60, -55)
@@ -24,11 +26,11 @@ class Day01Test extends FunSuite {
 
   test("Part one") {
     val expected = 3
-    assertEquals(Day01.partOne(puzzleInput), expected)
+    assertEquals(Day01.partOne, expected)
   }
 
   test("Part two") {
     val expected = 6
-    assertEquals(Day01.partTwo(puzzleInput), expected)
+    assertEquals(Day01.partTwo, expected)
   }
 }

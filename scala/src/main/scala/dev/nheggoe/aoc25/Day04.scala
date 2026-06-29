@@ -1,6 +1,6 @@
 package dev.nheggoe.aoc25
 
-import dev.nheggoe.aoc.AocDay
+import dev.nheggoe.aoc.{AocDay, Input}
 
 import scala.annotation.tailrec
 
@@ -30,12 +30,12 @@ object Day04 extends AocDay(4) {
     }.toSet
   }
 
-  def partOne(input: String): Int = {
+  def partOne(using Input): Int = {
     val rolls = parseInput(input)
     collectRemovableRolls(rolls).size
   }
 
-  def partTwo(input: String): Int = {
+  def partTwo(using Input): Int = {
     @tailrec
     def loop(rolls: Set[Position], acc: Int = 0): Int = {
       val removableRolls = collectRemovableRolls(rolls)

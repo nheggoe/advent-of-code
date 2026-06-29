@@ -1,6 +1,6 @@
 package dev.nheggoe.aoc25
 
-import dev.nheggoe.aoc.AocDay
+import dev.nheggoe.aoc.{AocDay, Input}
 
 import scala.util.matching.Regex
 
@@ -35,12 +35,12 @@ object Day01 extends AocDay(1) {
     }.toSeq
   }
 
-  def partOne(input: String): Int = {
+  def partOne(using Input): Int = {
     val nums = stringToSeq(input)
     nums.scan(50)(updatePosition).count(_ == 0)
   }
 
-  def partTwo(input: String): Int = {
+  def partTwo(using Input): Int = {
     val rotations = stringToSeq(input)
     val positions = rotations.scanLeft(50)(updatePosition)
     positions

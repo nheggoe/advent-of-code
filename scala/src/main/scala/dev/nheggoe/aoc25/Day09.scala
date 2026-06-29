@@ -1,6 +1,6 @@
 package dev.nheggoe.aoc25
 
-import dev.nheggoe.aoc.AocDay
+import dev.nheggoe.aoc.{AocDay, Input}
 
 object Day09 extends AocDay(9) {
 
@@ -17,7 +17,7 @@ object Day09 extends AocDay(9) {
     }.toSeq
   }
 
-  def partOne(input: String): Long = {
+  def partOne(using Input): Long = {
     val points = parseInput(input)
     points
       .combinations(2)
@@ -26,7 +26,7 @@ object Day09 extends AocDay(9) {
       .max
   }
 
-  def partTwo(input: String): Long = {
+  def partTwo(using Input): Long = {
     val points = parseInput(input)
     val isInHexagonPred = isInHexagon(points)
     ???
