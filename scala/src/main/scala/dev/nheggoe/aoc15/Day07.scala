@@ -16,15 +16,25 @@ object Day07 extends AocDay(7):
   override def main(args: Array[String]): Unit =
     given Input = InputFetcher.fetchInput
     logPartOne(partOne("a"))
-    logPartOne(partTwo)
+    logPartOne(partTwo("a"))
 
   override def partOne(using Input): Map[Key, Value] =
     given connections: Map[Destination, Source] = lines.toConnections
+    simulate
+
+  override def partTwo(using Input): Map[Key, Value] =
+    given connections: Map[Destination, Source] =
+      (lines :+ s"${partOne("a")} -> b").toConnections
+    simulate
+
+  private def simulate(using
+      connections: Map[Destination, Source]
+  ): Map[Key, Value] = {
+    register.clear()
     for (k, v) <- connections.toVector
     yield register.put(k, v.eval)
     register.toMap
-
-  override def partTwo(using Input): Any = ???
+  }
 
   enum Gate:
     case Or(x: Source, y: Source)
