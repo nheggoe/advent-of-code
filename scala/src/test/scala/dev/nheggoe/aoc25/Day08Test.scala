@@ -1,8 +1,8 @@
 package dev.nheggoe
 package aoc25
 
-import munit.FunSuite
 import dev.nheggoe.aoc.Input
+import munit.FunSuite
 
 class Day08Test extends FunSuite {
   private val puzzleInput = """162,817,812

@@ -1,9 +1,9 @@
 package dev.nheggoe
 package aoc15
 
-import munit.FunSuite
 import dev.nheggoe.aoc.Input
 import dev.nheggoe.aoc15.Day07.partOne
+import munit.FunSuite
 
 class Day07Test extends FunSuite {
   given Input = """123 -> x

@@ -1,6 +1,7 @@
 package dev.nheggoe.aoc15
 
 import dev.nheggoe.aoc.{AocDay, Input}
+
 import java.security.MessageDigest
 
 object Day04 extends AocDay(4) {

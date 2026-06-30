@@ -1,8 +1,8 @@
 package dev.nheggoe
 package aoc24
 
-import aoc24.Day03.{partOne, partTwo}
 import dev.nheggoe.aoc.Input
+import dev.nheggoe.aoc24.Day03.{partOne, partTwo}
 
 class Day03Test extends munit.FunSuite:
 
