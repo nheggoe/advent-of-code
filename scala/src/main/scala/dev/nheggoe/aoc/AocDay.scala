@@ -25,6 +25,8 @@ trait AocDay(n: Int)(using year: Year):
   given Date(year, Day(n))
 
   protected def input(using i: Input): String = i.value
+  protected def lines(using i: Input): Vector[String] =
+    input.linesIterator.toVector
 
   def partOne(using Input): Any
   def partTwo(using Input): Any
@@ -34,10 +36,13 @@ trait AocDay(n: Int)(using year: Year):
     logPartOne(partOne)
     logPartTwo(partTwo)
 
-  val day = f"Day$n%02d"
+  def logPartOne(ans: => Any): Unit = tryLog(prefix("partOne"), ans)
 
-  def logPartOne(ans: => Any): Unit =
-    println(s"[$year $day.partOne] $ans")
+  def logPartTwo(ans: => Any): Unit = tryLog(prefix("partTwo"), ans)
 
-  def logPartTwo(ans: => Any): Unit =
-    println(s"[$year $day.partTwo] $ans")
+  private def prefix(label: String) = f"[$year Day$n%02d.$label] "
+
+  private def tryLog(prefix: String, x: => Any): Unit =
+    print(prefix)
+    try println(x)
+    catch case _: NotImplementedError => println("???")

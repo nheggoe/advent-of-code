@@ -7,6 +7,8 @@ scalacOptions ++= Seq(
   "-feature",
   "-unchecked",
   "-Wunused:all",
+  "-Wvalue-discard",
+  "-preview",
   "-explain"
 )
 
