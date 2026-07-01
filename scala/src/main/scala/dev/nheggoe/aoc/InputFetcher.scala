@@ -23,7 +23,7 @@ object InputFetcher {
     if Files.exists(inputFile)
     then Input(Files.readString(inputFile))
     else
-      val input = fetchFromInternet(date).body.strip()
+      val input = fetchFromInternet(date).body.stripLineEnd
       if input.toLowerCase().contains("please log in")
       then
         throw IllegalStateException("Please refresh the AOC cookie in `.env`")
