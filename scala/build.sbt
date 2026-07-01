@@ -1,3 +1,5 @@
+Global / javaOptions += "--sun-misc-unsafe-memory-access=allow"
+
 name := "advent-of-code"
 scalaVersion := "3.8.4"
 
