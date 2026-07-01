@@ -25,7 +25,7 @@ object Day09 extends AocDay(9) {
       yield Set(from, to)
     }.flatten
 
-  override def partOne(using Input): Any = {
+  def visitAllPaths(using Input): List[List[Path]] = {
     val paths = lines.map(Path(_)).toSet.undirected
     val table = paths.groupBy(_.from)
     val locations = paths.uniqueLocations
@@ -40,13 +40,20 @@ object Day09 extends AocDay(9) {
         yield next :: rest
     }
 
-    {
-      for
-        start <- locations.toList
-        route <- recur(start, locations - start)
-      yield route.map(_.distance).sum
-    }.sorted.headOption
+    for
+      start <- locations.toList
+      route <- recur(start, locations - start)
+    yield route
   }
 
-  override def partTwo(using Input): Any = ???
+  override def partOne(using Input): Any = {
+    for path <- visitAllPaths
+    yield path.map(_.distance).sum
+  }.sorted.headOption
+
+  override def partTwo(using Input): Any = {
+    for path <- visitAllPaths
+    yield path.map(_.distance).sum
+  }.sorted.reverse.headOption
+ 
 }

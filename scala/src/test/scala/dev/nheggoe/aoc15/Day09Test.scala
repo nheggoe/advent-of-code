@@ -1,7 +1,7 @@
 package dev.nheggoe.aoc15
 
 import dev.nheggoe.aoc.Input
-import dev.nheggoe.aoc15.Day09.{Path, partOne, uniqueLocations}
+import dev.nheggoe.aoc15.Day09.{Path, partOne, partTwo, uniqueLocations}
 import munit.FunSuite
 
 class Day09Test extends FunSuite {
@@ -34,5 +34,10 @@ class Day09Test extends FunSuite {
   test("partOne") {
     val expected = Some(605)
     assertEquals(partOne, expected)
+  }
+
+  test("partTwo") {
+    val longest = Some(982)
+    assertEquals(partTwo, longest)
   }
 }
