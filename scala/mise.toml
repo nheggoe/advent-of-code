@@ -7,6 +7,9 @@ gum = "latest"
 [tasks.clean-build]
 run = "sbt 'cleanFull; compile'"
 
+[tasks.all]
+run = "sbt runAll"
+
 [tasks.aoc]
 description = "Run a solution. Usage: mise run aoc [year] [day] — args bypass the picker (e.g. 25 9, 2025 09, aoc25 Day09)"
 run = """
