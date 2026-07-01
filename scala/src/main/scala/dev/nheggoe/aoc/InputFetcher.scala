@@ -21,17 +21,15 @@ object InputFetcher {
     val inputFile = date.toPath
 
     if Files.exists(inputFile)
-    then Files.readString(inputFile)
+    then Input(Files.readString(inputFile))
     else
-      val input = fetchFromInternet(date).body
+      val input = fetchFromInternet(date).body.strip()
       if input.toLowerCase().contains("please log in")
       then
-        throw new IllegalStateException(
-          "Please refresh the AOC cookie in `.env`"
-        )
+        throw IllegalStateException("Please refresh the AOC cookie in `.env`")
       else println("Fetched puzzle input from internet")
       saveToCache(inputFile, input)
-      input
+      Input(input)
   }
 
   extension (date: Date)
@@ -63,7 +61,7 @@ object InputFetcher {
 
   private def saveToCache(cacheFile: Path, content: String): Unit = {
     Files.createDirectories(cacheFile.getParent)
-    Files.writeString(cacheFile, content)
+    val _ = Files.writeString(cacheFile, content)
   }
 
   private def readDotEnv(path: String = "../.env") = {

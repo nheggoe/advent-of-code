@@ -4,15 +4,17 @@ import java.util.concurrent.*
 
 opaque type Year = Int
 
-object Year:
+object Year {
   def apply(n: Int): Year = n
   extension (y: Year) def value: Int = y
+}
 
 opaque type Day = Int
 
-object Day:
+object Day {
   def apply(n: Int): Day = n
   extension (d: Day) def value: Int = d
+}
 
 case class Date(year: Year, day: Day)
 
@@ -23,30 +25,34 @@ case class Date(year: Year, day: Day)
   * provides a `main` that prints both parts. Subclasses only implement
   * [[partOne]] / [[partTwo]]; override `main` for custom output (e.g. timing).
   */
-object AocDay:
-  /** Per-part wall-clock budget; parts exceeding this print `timed out`. */
-  private val timeoutSeconds = 4
-
-trait AocDay(n: Int)(using year: Year):
+trait AocDay(n: Int)(using year: Year) {
   given Date(year, Day(n))
+
+  def partOne(using Input): Any
+  def partTwo(using Input): Any
+
+  def main(args: Array[String]): Unit = {
+    given Input = InputFetcher.fetchInput
+    logPartOne(partOne)
+    logPartTwo(partTwo)
+  }
+
+  // =========== helpers ============
 
   protected def input(using i: Input): String = i.value
   protected def lines(using i: Input): Vector[String] =
     input.linesIterator.toVector
 
-  def partOne(using Input): Any
-  def partTwo(using Input): Any
-
-  def main(args: Array[String]): Unit =
-    given Input = InputFetcher.fetchInput
-    logPartOne(partOne)
-    logPartTwo(partTwo)
+  extension [T](f: T => T)
+    def iter(n: Int, z: T): T = Iterator.iterate(z)(f).drop(n).next()
 
   def logPartOne(ans: => Any): Unit = tryLog(prefix("partOne"), ans)
 
   def logPartTwo(ans: => Any): Unit = tryLog(prefix("partTwo"), ans)
 
   private def prefix(label: String) = f"[$year Day$n%02d.$label] "
+
+  protected def timeoutSeconds: Int = 4
 
   /** Evaluates `x` on a daemon thread, aborting after
     * [[AocDay.timeoutSeconds]].
@@ -55,7 +61,7 @@ trait AocDay(n: Int)(using year: Year):
     * is cooperative), but the worker is a daemon so it never blocks JVM exit;
     * `shutdownNow` interrupts it on a best-effort basis.
     */
-  private def tryLog(prefix: String, x: => Any): Unit =
+  private def tryLog(prefix: String, x: => Any): Unit = {
     print(prefix)
     val executor = Executors.newSingleThreadExecutor: r =>
       val t = Thread(r, f"$year-Day$n%02d")
@@ -63,14 +69,15 @@ trait AocDay(n: Int)(using year: Year):
       t
     try
       val task: Callable[Any] = () => x
-      println(
-        executor.submit(task).get(AocDay.timeoutSeconds, TimeUnit.SECONDS)
-      )
+      val future = executor.submit(task)
+      println(future.get(timeoutSeconds, TimeUnit.SECONDS))
     catch
       case _: TimeoutException =>
-        println(s"timed out (> ${AocDay.timeoutSeconds}s)")
+        println(s"timed out (> ${timeoutSeconds}s)")
       case e: ExecutionException =>
         e.getCause match
           case _: NotImplementedError => println("???")
           case cause                  => throw cause
-    finally executor.shutdownNow()
+    finally executor.shutdownNow(): Unit
+  }
+}
