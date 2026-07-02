@@ -12,7 +12,7 @@ object Day11 extends AocDay(11) {
   extension (c: Char) def increment: Char = (c.toInt + 1).toChar
 
   extension (s: String) {
-    private def isValid: Boolean =
+    def isValid: Boolean =
       s.containsIncreasingStraight && s.allValidChar && s.containsTwoNonOverlappingPairs
 
     private def containsPair: Option[Char] = {
@@ -56,11 +56,10 @@ object Day11 extends AocDay(11) {
       @tailrec
       def go(acc: String): String =
         if acc.isValid then acc else go(acc.increment)
-
-      go(s)
+      go(s.increment)
   }
 
   override def partOne(using Input): String = input.nextPassword
 
-  override def partTwo(using Input): Any = ???
+  override def partTwo(using Input): String = partOne.nextPassword
 }

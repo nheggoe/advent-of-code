@@ -1,6 +1,13 @@
 package dev.nheggoe.aoc15
 
-import dev.nheggoe.aoc15.Day11.*
+import dev.nheggoe.aoc15.Day11.{
+  allValidChar,
+  containsIncreasingStraight,
+  containsTwoNonOverlappingPairs,
+  increment,
+  isValid,
+  nextPassword
+}
 import munit.FunSuite
 
 class Day11Test extends FunSuite {
