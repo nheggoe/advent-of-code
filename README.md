@@ -1,11 +1,10 @@
 # Advent of Code solutions
 
-## Scala
-
-| Year | Solutions                                 |
-| ---- | ----------------------------------------- |
-| 2024 | [Source Code](scala/src/main/scala/aoc24) |
-| 2025 | [Source Code](scala/src/main/scala/aoc25) |
+| Year | Solutions                                       |
+|------|-------------------------------------------------|
+| 2015 | [Scala](scala/src/main/scala/dev/nheggoe/aoc15) |
+| 2024 | [Scala](scala/src/main/scala/dev/nheggoe/aoc24) |
+| 2025 | [Scala](scala/src/main/scala/dev/nheggoe/aoc25) |
 
 > [!IMPORTANT]
 > An AOC session token is required at the project root to fetch the puzzle input. \
