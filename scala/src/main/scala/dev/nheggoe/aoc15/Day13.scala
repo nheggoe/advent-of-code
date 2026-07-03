@@ -43,12 +43,18 @@ object Day13 extends AocDay(13) {
     yield Set(x, y)
   }.flatten
 
+  extension (ps: Set[People])
+    def allArrangements: List[List[People]] = ps.toList.permutations.toList
+
   override def partOne(using Input): Int =
     val rules = lines.map(_.parseRule)
     val table = rules.groupBy(_.source)
-    allPeople(rules).toList.permutations.toList
-      .map(_.toHappiness(calculateHappiness(table)).sum)
-      .max
+    val f = calculateHappiness(table)
+    allPeople(rules).allArrangements.map(_.toHappiness(f).sum).max
 
-  override def partTwo(using Input): Any = ???
+  override def partTwo(using Input): Int =
+    val rules = lines.map(_.parseRule)
+    val table = rules.groupBy(_.source)
+    val f = calculateHappiness(table)
+    (allPeople(rules) + "Nick").allArrangements.map(_.toHappiness(f).sum).max
 }
