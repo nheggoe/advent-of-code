@@ -1,7 +1,7 @@
 package dev.nheggoe.aoc15
 
 import dev.nheggoe.aoc.Input
-import dev.nheggoe.aoc15.Day14.{Reindeer, parseReindeer}
+import dev.nheggoe.aoc15.Day14.{Reindeer, parseReindeer, race}
 import munit.FunSuite
 
 class Day14Test extends FunSuite {
@@ -51,4 +51,13 @@ class Day14Test extends FunSuite {
       assertEquals(comet.totalDistance(raceDuration), 1120)
       assertEquals(dancer.totalDistance(raceDuration), 1056)
   }
+
+  test("part two") {
+    new TestData:
+      assertEquals(
+        race(raceDuration, comet, dancer),
+        Vector((comet.name, 312), (dancer.name, 689))
+      )
+  }
+
 }
