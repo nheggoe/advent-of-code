@@ -18,7 +18,8 @@ val toolkitVersion = "0.9.2"
 
 libraryDependencies ++= Seq(
   "org.scala-lang" %% "toolkit" % toolkitVersion,
-  "org.scala-lang" %% "toolkit-test" % toolkitVersion % Test
+  "org.scala-lang" %% "toolkit-test" % toolkitVersion % Test,
+  "org.scalameta" %% "munit-scalacheck" % "1.3.0" % Test
 )
 
 lazy val runAll = taskKey[Unit]("Run every AoC day's main sequentially")
