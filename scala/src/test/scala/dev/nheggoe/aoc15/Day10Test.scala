@@ -30,13 +30,13 @@ class Day10Test extends FunSuite {
   }
 
   test("fifth iteration") {
-    val input ="111221"
+    val input = "111221"
     val after = "312211"
     assertEquals(lookAndSay(input), after)
   }
 
   test("iter 5 times == fifth iteration") {
-    val input ="1"
+    val input = "1"
     val expected = "312211"
     assertEquals(lookAndSay.iter(5, input), expected)
   }

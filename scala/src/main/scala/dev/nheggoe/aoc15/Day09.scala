@@ -55,5 +55,5 @@ object Day09 extends AocDay(9) {
     for path <- visitAllPaths
     yield path.map(_.distance).sum
   }.sorted.reverse.headOption
- 
+
 }

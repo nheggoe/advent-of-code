@@ -36,5 +36,5 @@ object Day10 extends AocDay(10) {
 
   override def partTwo(using Input): Any =
     lookAndSay.iter(50, input).length
-   
+
 }
