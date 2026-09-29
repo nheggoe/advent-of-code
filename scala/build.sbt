@@ -1,7 +1,7 @@
 Global / javaOptions += "--sun-misc-unsafe-memory-access=allow"
 
 name := "advent-of-code"
-scalaVersion := "3.8.4"
+scalaVersion := "3.9.0"
 
 scalacOptions ++= Seq(
   "-deprecation",

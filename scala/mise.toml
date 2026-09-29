@@ -1,7 +1,7 @@
 [tools]
-java = "25"
-scala = "3.8.4"
-sbt = "2.0.1"
+java = "liberica-25"
+scala = "3.9.0"
+sbt = "2.0.9"
 gum = "latest"
 
 [tasks.clean-build]
