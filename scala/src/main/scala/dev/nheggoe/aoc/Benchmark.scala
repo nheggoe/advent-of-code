@@ -8,10 +8,8 @@ object Benchmark {
     val result = block
 
     val start = System.nanoTime()
-    var warmupCount = 0
     while (System.nanoTime() - start) / 1e6 < warmupMs do {
-      block
-      warmupCount += 1
+      val _ = block
     }
 
     val times = (1 to runs).map { _ =>

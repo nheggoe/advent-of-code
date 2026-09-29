@@ -3,6 +3,7 @@ package dev.nheggoe.aoc25
 import dev.nheggoe.aoc.{AocDay, Input}
 
 import scala.annotation.tailrec
+import scala.compiletime.asMatchable
 import scala.util.chaining.scalaUtilChainingOps
 
 object Day08 extends AocDay(8) {
@@ -16,8 +17,12 @@ object Day08 extends AocDay(8) {
   case class Point(x: Int, y: Int, z: Int)
 
   def euclideanDistance(p: Point, q: Point): Double = {
-    val pCord = p.productIterator.collect { case int: Int => int }
-    val qCord = q.productIterator.collect { case int: Int => int }
+    val pCord = p.productIterator
+      .map(_.asMatchable)
+      .collect { case i: Int => i }
+    val qCord = q.productIterator
+      .map(_.asMatchable)
+      .collect { case i: Int => i }
     pCord
       .zip(qCord)
       .map(_ - _)

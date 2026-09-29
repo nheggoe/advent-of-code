@@ -19,7 +19,6 @@ object Day07 extends AocDay(7) {
       lines: Seq[Seq[Char]],
       initial: Vector[Long]
   ): (Seq[Long], Long) = {
-    val width = lines.head.size
     lines.foldLeft(initial, 0L) { case ((rays, counter), line) =>
       val splitters = line.zipWithIndex.collect {
         case ('^', idx) if rays(idx) > 0L => idx
