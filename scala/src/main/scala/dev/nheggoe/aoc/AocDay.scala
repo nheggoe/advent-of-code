@@ -19,13 +19,13 @@ object Day {
 case class Date(year: Year, day: Day)
 
 // State Monad
-final case class St[A, S](run: S => (value: A, state: S)):
-  def map[B](f: A => B): St[B, S] =
+final case class St[A, S](run: S -> (value: A, state: S)):
+  def map[B](f: A -> B): St[B, S] =
     St: s =>
       val (a, s2) = run(s)
       (f(a), s2)
 
-  def flatMap[B](f: A => St[B, S]): St[B, S] =
+  def flatMap[B](f: A -> St[B, S]): St[B, S] =
     St: s =>
       val (a, s2) = run(s)
       f(a).run(s2)
@@ -80,8 +80,7 @@ trait AocDay(n: Int)(using year: Year) {
       t.setDaemon(true)
       t
     try
-      val task: Callable[Any] = () => x
-      val future = executor.submit(task)
+      val future = executor.submit[Any](() => x)
       println(future.get(timeoutSeconds, TimeUnit.SECONDS))
     catch
       case _: TimeoutException =>

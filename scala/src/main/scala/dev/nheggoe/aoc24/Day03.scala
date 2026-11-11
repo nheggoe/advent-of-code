@@ -14,7 +14,7 @@ object Day03 extends AocDay(3) {
     mulPattern
       .findAllIn(input)
       .map { case mulPattern(a, b) =>
-        a.toLong * b.toLong
+        a.nn.toLong * b.nn.toLong
       }
       .sum
 
@@ -23,7 +23,7 @@ object Day03 extends AocDay(3) {
       .findAllIn(input)
       .foldLeft((true, 0: Long)) {
         case ((true, sum), mulPattern(a, b)) =>
-          (true, sum + a.toLong * b.toLong)
+          (true, sum + a.nn.toLong * b.nn.toLong)
         case ((_, sum), "don't()") => (false, sum)
         case ((_, sum), "do()")    => (true, sum)
         case ((flag, sum), _)      => (flag, sum)

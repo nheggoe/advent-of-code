@@ -60,11 +60,11 @@ object Day07 extends AocDay(7):
     private val RShiftR = """(\w+) RSHIFT (\d+)""".r
 
     def apply(s: String): Gate = s.strip() match
-      case NotR(x)       => Not(Source(x))
-      case OrR(x, y)     => Or(Source(x), Source(y))
-      case AndR(x, y)    => And(Source(x), Source(y))
-      case LShiftR(x, n) => LShift(Source(x), n.toInt)
-      case RShiftR(x, n) => RShift(Source(x), n.toInt)
+      case NotR(x)       => Not(Source(x.nn))
+      case OrR(x, y)     => Or(Source(x.nn), Source(y.nn))
+      case AndR(x, y)    => And(Source(x.nn), Source(y.nn))
+      case LShiftR(x, n) => LShift(Source(x.nn), n.nn.toInt)
+      case RShiftR(x, n) => RShift(Source(x.nn), n.nn.toInt)
 
     given Conversion[String, Gate] = Gate(_)
   end Gate
@@ -87,8 +87,8 @@ object Day07 extends AocDay(7):
 
     def apply(s: String): Source =
       s.strip() match
-        case NumR(n)    => Num(n.toInt)
-        case VarR(name) => Var(name)
+        case NumR(n)    => Num(n.nn.toInt)
+        case VarR(name) => Var(name.nn)
         case s          => GateS(s)
 
     given Conversion[String, Source] = Source(_)

@@ -13,9 +13,9 @@ object Day13 extends AocDay(13) {
         """(\w+) would lose (\d+) happiness units by sitting next to (\w+).""".r
       s match
         case gainR(source, value, nextTo) =>
-          new Rule(source, nextTo, value.toInt)
+          new Rule(source.nn, nextTo.nn, value.nn.toInt)
         case loseR(source, value, nextTo) =>
-          new Rule(source, nextTo, -value.toInt)
+          new Rule(source.nn, nextTo.nn, -value.nn.toInt)
 
   extension (s: String) def parseRule: Rule = Rule(s)
   extension (ps: List[People])

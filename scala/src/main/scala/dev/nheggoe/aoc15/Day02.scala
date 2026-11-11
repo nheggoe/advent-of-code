@@ -17,7 +17,7 @@ object Day02 extends AocDay(2) {
   def parseDimentions(line: String): (Int, Int, Int) = {
     val pattern = """(\d+)x(\d+)x(\d+)""".r
     line match {
-      case pattern(l, w, h) => (l.toInt, w.toInt, h.toInt)
+      case pattern(l, w, h) => (l.nn.toInt, w.nn.toInt, h.nn.toInt)
     }
   }
 

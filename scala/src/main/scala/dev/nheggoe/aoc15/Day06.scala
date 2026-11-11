@@ -19,10 +19,10 @@ object Day06 extends AocDay(6) {
 
     def execInsPartOne(instruction: String): Unit = instruction match {
       case instructionPattern(op, rs, cs, re, ce) =>
-        val rStart = rs.toInt
-        val cStart = cs.toInt
-        val rEnd = re.toInt
-        val cEnd = ce.toInt
+        val rStart = rs.nn.toInt
+        val cStart = cs.nn.toInt
+        val rEnd = re.nn.toInt
+        val cEnd = ce.nn.toInt
         val f: Int => Int = op match {
           case "turn on"  => _ => 1
           case "turn off" => _ => 0
@@ -34,10 +34,10 @@ object Day06 extends AocDay(6) {
 
     def execInsPartTwo(instruction: String): Unit = instruction match {
       case instructionPattern(op, rs, cs, re, ce) =>
-        val rStart = rs.toInt
-        val cStart = cs.toInt
-        val rEnd = re.toInt
-        val cEnd = ce.toInt
+        val rStart = rs.nn.toInt
+        val cStart = cs.nn.toInt
+        val rEnd = re.nn.toInt
+        val cEnd = ce.nn.toInt
         val f: Int => Int = op match {
           case "turn on"  => _ + 1
           case "toggle"   => _ + 2

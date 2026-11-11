@@ -10,7 +10,8 @@ object Day09 extends AocDay(9) {
     def apply(s: String): Path =
       val pattern = """(\w+) to (\w+) = (\d+)""".r
       s match
-        case pattern(from, to, weight) => new Path(from, to, weight.toInt)
+        case pattern(from, to, weight) =>
+          new Path(from.nn, to.nn, weight.nn.toInt)
 
     given Conversion[String, Path] = Path(_)
 

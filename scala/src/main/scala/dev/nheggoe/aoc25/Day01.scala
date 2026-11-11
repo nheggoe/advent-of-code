@@ -30,8 +30,8 @@ object Day01 extends AocDay(1) {
 
   def stringToSeq(input: String): Seq[Int] = {
     input.linesIterator.collect {
-      case pattern("L", num) => -num.toInt
-      case pattern("R", num) => num.toInt
+      case pattern("L", num) => -num.nn.toInt
+      case pattern("R", num) => num.nn.toInt
     }.toSeq
   }
 

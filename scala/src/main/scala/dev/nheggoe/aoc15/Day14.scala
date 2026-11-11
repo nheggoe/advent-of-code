@@ -43,7 +43,12 @@ object Day14 extends AocDay(14) {
 
     def apply(s: String): Reindeer = s match
       case pattern(name, speed, flyDuration, restDuration) =>
-        new Reindeer(name, speed.toInt, flyDuration.toInt, restDuration.toInt)
+        new Reindeer(
+          name.nn,
+          speed.nn.toInt,
+          flyDuration.nn.toInt,
+          restDuration.nn.toInt
+        )
 
     given Conversion[String, Reindeer] = Reindeer(_)
   }
