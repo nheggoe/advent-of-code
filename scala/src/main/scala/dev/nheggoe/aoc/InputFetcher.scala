@@ -6,14 +6,12 @@ import sttp.client4.quick.*
 import java.nio.file.{Files, Path, Paths}
 import scala.jdk.CollectionConverters.*
 
-opaque type Input = String
+into opaque type Input = String
 
 object Input:
-  def apply(s: String): Input = s
-
   extension (i: Input) def value: String = i
 
-  given Conversion[String, Input] = Input(_)
+  given Conversion[String, Input] = s => s
 
 object InputFetcher {
 
@@ -21,7 +19,7 @@ object InputFetcher {
     val inputFile = date.toPath
 
     if Files.exists(inputFile)
-    then Input(Files.readString(inputFile))
+    then Files.readString(inputFile)
     else
       val input = fetchFromInternet(date).body.stripLineEnd
       if input.toLowerCase().contains("please log in")
@@ -29,7 +27,7 @@ object InputFetcher {
         throw IllegalStateException("Please refresh the AOC cookie in `.env`")
       else println("Fetched puzzle input from internet")
       saveToCache(inputFile, input)
-      Input(input)
+      input
   }
 
   extension (date: Date)

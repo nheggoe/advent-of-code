@@ -5,9 +5,9 @@ import dev.nheggoe.aoc15.Day09.{Path, partOne, partTwo, uniqueLocations}
 import munit.FunSuite
 
 class Day09Test extends FunSuite {
-  given input: Input = Input("""London to Dublin = 464
-                        |London to Belfast = 518
-                        |Dublin to Belfast = 141""".stripMargin)
+  given input: Input = """London to Dublin = 464
+                         |London to Belfast = 518
+                         |Dublin to Belfast = 141""".stripMargin
 
   val paths: Set[Path] = {
     for line <- input.value.linesIterator.toSeq

@@ -6,14 +6,15 @@ import dev.nheggoe.aoc15.Day07.partOne
 import munit.FunSuite
 
 class Day07Test extends FunSuite {
-  given Input = """123 -> x
-                   |456 -> y
-                   |x AND y -> d
-                   |x OR y -> e
-                   |x LSHIFT 2 -> f
-                   |y RSHIFT 2 -> g
-                   |NOT x -> h
-                   |NOT y -> i""".stripMargin
+  given Input =
+    """123 -> x
+      |456 -> y
+      |x AND y -> d
+      |x OR y -> e
+      |x LSHIFT 2 -> f
+      |y RSHIFT 2 -> g
+      |NOT x -> h
+      |NOT y -> i""".stripMargin
 
   test("example part one") {
     val expected = Map(

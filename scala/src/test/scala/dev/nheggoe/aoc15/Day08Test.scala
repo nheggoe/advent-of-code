@@ -5,10 +5,10 @@ import dev.nheggoe.aoc15.Day08.{partOne, partTwo}
 import munit.FunSuite
 
 class Day08Test extends FunSuite {
-  given input: Input = Input("""""
+  given Input = """""
                                |"abc"
                                |"aaa\"aaa"
-                               |"\x27"""".stripMargin)
+                               |"\x27"""".stripMargin
 
   test("partOne") {
     val expected = 12

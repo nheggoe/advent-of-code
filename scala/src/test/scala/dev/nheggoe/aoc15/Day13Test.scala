@@ -5,7 +5,7 @@ import dev.nheggoe.aoc15.Day13.partOne
 import munit.FunSuite
 
 class Day13Test extends FunSuite {
-  given Input = Input(
+  given Input =
     """Alice would gain 54 happiness units by sitting next to Bob.
       |Alice would lose 79 happiness units by sitting next to Carol.
       |Alice would lose 2 happiness units by sitting next to David.
@@ -18,7 +18,6 @@ class Day13Test extends FunSuite {
       |David would gain 46 happiness units by sitting next to Alice.
       |David would lose 7 happiness units by sitting next to Bob.
       |David would gain 41 happiness units by sitting next to Carol.""".stripMargin
-  )
 
   test("case 1") {
     assertEquals(partOne, 330)
