@@ -28,6 +28,13 @@ object Day15 extends AocDay(15) {
       calories * n
     )
 
+    def score: Long = {
+      math.max(0L, capacity)
+        * math.max(0L, durability)
+        * math.max(0L, flavor)
+        * math.max(0L, texture)
+    }
+
   }
 
   object Ingredient {
@@ -55,15 +62,11 @@ object Day15 extends AocDay(15) {
   }
 
   extension (ingredients: List[Ingredient])
-    def score(amounts: List[Int]): Long = {
-      val total = ingredients
+    def mix(amounts: List[Int]): Ingredient = {
+      ingredients
         .zip(amounts)
         .map((ingredient, amount) => ingredient.scale(amount))
         .reduce(_.merge(_))
-      math.max(0L, total.capacity)
-        * math.max(0L, total.durability)
-        * math.max(0L, total.flavor)
-        * math.max(0L, total.texture)
     }
 
   def splits(total: Int, parts: Int): Iterator[List[Int]] = {
@@ -76,7 +79,14 @@ object Day15 extends AocDay(15) {
 
   def partOne(using Input): Long =
     val ingredients = lines.map(Ingredient(_)).toList
-    splits(100, ingredients.size).map(ingredients.score).max
+    splits(100, ingredients.size).map(ingredients.mix).map(_.score).max
 
-  def partTwo(using Input): Long = ???
+  def partTwo(using Input): Long =
+    val ingredients = lines.map(Ingredient(_)).toList
+    val scores = for {
+      combination <- splits(100, ingredients.size)
+      mixed = ingredients.mix(combination)
+      if mixed.calories == 500
+    } yield mixed.score
+    scores.max
 }

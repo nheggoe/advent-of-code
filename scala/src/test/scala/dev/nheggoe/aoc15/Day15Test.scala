@@ -12,4 +12,8 @@ class Day15Test extends FunSuite {
     assertEquals(Day15.partOne, 62842880L)
   }
 
+  test("part2") {
+    assertEquals(Day15.partTwo, 57600000L)
+  }
+
 }
