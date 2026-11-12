@@ -22,11 +22,14 @@ class Day16Test extends FunSuite {
     } yield entries
     val (entries, _) = parser.run(input.value)
     val aunt = Aunt(1, entries)
-    assertEquals(aunt, Aunt(id = 1, children = 1, cars = 8, vizslas = 7))
+    assertEquals(
+      aunt,
+      Aunt(id = 1, children = Some(1), cars = Some(8), vizslas = Some(7))
+    )
   }
 
   test("partOne") {
-    target = Aunt(id = 1, children = 1, cars = 8, vizslas = 7)
+    target = Aunt(id = 1, children = Some(1), cars = Some(8), vizslas = Some(7))
     assertEquals(Day16.partOne, 1)
   }
 }

@@ -67,31 +67,54 @@ object Day16 extends AocDay(16) {
 
   case class Aunt(
       id: Int,
-      children: Int = 0,
-      cats: Int = 0,
-      samoyeds: Int = 0,
-      pomeranians: Int = 0,
-      akitas: Int = 0,
-      vizslas: Int = 0,
-      goldfish: Int = 0,
-      trees: Int = 0,
-      cars: Int = 0,
-      perfumes: Int = 0,
+      children: Option[Int] = None,
+      cats: Option[Int] = None,
+      samoyeds: Option[Int] = None,
+      pomeranians: Option[Int] = None,
+      akitas: Option[Int] = None,
+      vizslas: Option[Int] = None,
+      goldfish: Option[Int] = None,
+      trees: Option[Int] = None,
+      cars: Option[Int] = None,
+      perfumes: Option[Int] = None,
   ) {
-    def matches(other: Aunt): Boolean = List(
-      children -> other.children,
-      cats -> other.cats,
-      samoyeds -> other.samoyeds,
-      pomeranians -> other.pomeranians,
-      akitas -> other.akitas,
-      vizslas -> other.vizslas,
-      goldfish -> other.goldfish,
-      trees -> other.trees,
-      cars -> other.cars,
-      perfumes -> other.perfumes,
-    ).forall { case (a, b) =>
-      a == 0 || a == b
+    def toMap: Map[Key, Option[Int]] = Map(
+      Key.Children -> children,
+      Key.Cats -> cats,
+      Key.Samoyeds -> samoyeds,
+      Key.Pomeranians -> pomeranians,
+      Key.Akitas -> akitas,
+      Key.Vizslas -> vizslas,
+      Key.Goldfish -> goldfish,
+      Key.Trees -> trees,
+      Key.Cars -> cars,
+      Key.Perfumes -> perfumes,
+    )
+    def matches: Boolean = {
+      val tMap = target.toMap
+      toMap.forall { case (key, value) =>
+        value.isEmpty || value == tMap(key)
+      }
     }
+
+    def matchFn(key: Key): (Option[Int], Option[Int]) -> Boolean = {
+      val fn: (Option[Int], Option[Int]) -> Boolean = key match {
+        case Key.Cats | Key.Trees => { case (Some(a), Some(b)) =>
+          a > b
+        }
+        case Key.Pomeranians | Key.Goldfish => { case (Some(a), Some(b)) =>
+          a < b
+        }
+        case _ => _ == _
+      }
+      (a, b) => a.isEmpty || fn(a, b)
+    }
+
+    def outdatedRetroencabulatorMatches: Boolean =
+      val tMap = target.toMap
+      toMap.forall { case (key, value) =>
+        matchFn(key)(value, tMap(key))
+      }
   }
 
   object Aunt {
@@ -105,16 +128,16 @@ object Day16 extends AocDay(16) {
     def apply(id: Int, xs: List[Entry]): Aunt = {
       xs.foldLeft(Aunt(id)) { case (aunt, (key, value)) =>
         key match {
-          case Key.Children    => aunt.copy(children = value)
-          case Key.Cats        => aunt.copy(cats = value)
-          case Key.Samoyeds    => aunt.copy(samoyeds = value)
-          case Key.Pomeranians => aunt.copy(pomeranians = value)
-          case Key.Akitas      => aunt.copy(akitas = value)
-          case Key.Vizslas     => aunt.copy(vizslas = value)
-          case Key.Goldfish    => aunt.copy(goldfish = value)
-          case Key.Trees       => aunt.copy(trees = value)
-          case Key.Cars        => aunt.copy(cars = value)
-          case Key.Perfumes    => aunt.copy(perfumes = value)
+          case Key.Children    => aunt.copy(children = Some(value))
+          case Key.Cats        => aunt.copy(cats = Some(value))
+          case Key.Samoyeds    => aunt.copy(samoyeds = Some(value))
+          case Key.Pomeranians => aunt.copy(pomeranians = Some(value))
+          case Key.Akitas      => aunt.copy(akitas = Some(value))
+          case Key.Vizslas     => aunt.copy(vizslas = Some(value))
+          case Key.Goldfish    => aunt.copy(goldfish = Some(value))
+          case Key.Trees       => aunt.copy(trees = Some(value))
+          case Key.Cars        => aunt.copy(cars = Some(value))
+          case Key.Perfumes    => aunt.copy(perfumes = Some(value))
         }
       }
     }
@@ -122,21 +145,27 @@ object Day16 extends AocDay(16) {
 
   var target = Aunt(
     id = -1,
-    children = 3,
-    cats = 7,
-    samoyeds = 2,
-    pomeranians = 3,
-    akitas = 0,
-    vizslas = 0,
-    goldfish = 5,
-    trees = 3,
-    cars = 2,
-    perfumes = 1,
+    children = Some(3),
+    cats = Some(7),
+    samoyeds = Some(2),
+    pomeranians = Some(3),
+    akitas = Some(0),
+    vizslas = Some(0),
+    goldfish = Some(5),
+    trees = Some(3),
+    cars = Some(2),
+    perfumes = Some(1),
   )
 
   def partOne(using Input): Int = {
-    lines.map(Aunt(_)).find(_.matches(target)).map(_.id).getOrElse(-1)
+    lines.map(Aunt(_)).find(_.matches).map(_.id).getOrElse(-1)
   }
 
-  def partTwo(using Input): Any = ???
+  def partTwo(using Input): Int = {
+    lines
+      .map(Aunt(_))
+      .find(_.outdatedRetroencabulatorMatches)
+      .map(_.id)
+      .getOrElse(-1)
+  }
 }
